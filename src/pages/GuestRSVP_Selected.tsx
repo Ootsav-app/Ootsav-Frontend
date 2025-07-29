@@ -45,39 +45,41 @@ export default function GuestRSVP_Selected() {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center">
-      {/* Top half: back.svg background */}
+      
       <div
         className="w-full min-h-[50vh] bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url("back.svg")' }}
       />
-
-      {/* Content starts here */}
       <div className="-mt-90 w-full px-4 md:px-8 flex flex-col items-center">
-        {/* Header */}
-        <div className="flex items-center w-full max-w-md text-white mb-2 px-4 md:px-10">
+       
+        <div className="flex items-center w-full max-w-2xl text-white mb-2 px-4 md:px-10">
           <button className="rounded-full p-2 mr-3 bg-white/20">
             <GoArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
           </button>
           <span className="text-lg md:text-xl font-medium">Event Overview</span>
         </div>
-
-        {/* Subtitle */}
-        <p className="text-white mb-6 text-sm md:text-base text-center max-w-md">
+        <p className="text-white mb-6 text-sm md:text-base text-center max-w-2xl">
           Please share these details to help us plan better!
         </p>
-
-        {/* Form Card */}
-        <div className="relative w-full max-w-md min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12 bg-gradient-to-t from-[#fdcfc8] to-white">
-          {/* Personal Info */}
+        <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12 bg-gradient-to-t from-[#fdcfc8] to-white">
+        
           <div className="relative z-10">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">Personal Details</h2>
+            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+              Personal Details
+            </h2>
             <input type="text" placeholder="Name*" className={inputStyle} />
-            <input type="tel" placeholder="Phone Number*" className={inputStyle} />
+            <input
+              type="tel"
+              placeholder="Phone Number*"
+              className={inputStyle}
+            />
             <input type="email" placeholder="Email Id" className={inputStyle} />
-            <textarea placeholder="Personal Note" rows={2} className={inputStyle} />
+            <textarea
+              placeholder="Personal Note"
+              rows={2}
+              className={inputStyle}
+            />
           </div>
-
-          {/* RSVP */}
           <Category
             title="RSVP Status"
             options={[
@@ -89,7 +91,6 @@ export default function GuestRSVP_Selected() {
             onSelect={(label) => toggleSingle("rsvp", label)}
           />
 
-          {/* Guest Count */}
           <Category
             title="Additional Guest Count"
             options={[
@@ -100,8 +101,6 @@ export default function GuestRSVP_Selected() {
             selected={selected.guest}
             onSelect={(label) => toggleSingle("guest", label)}
           />
-
-          {/* Food */}
           <Category
             title="Food Preference"
             options={[
@@ -113,7 +112,6 @@ export default function GuestRSVP_Selected() {
             onSelect={(label) => toggleSingle("food", label)}
           />
 
-          {/* Alcohol */}
           <Category
             title="Alcohol Preference"
             options={[
@@ -127,27 +125,27 @@ export default function GuestRSVP_Selected() {
             gridCols="grid-cols-4"
             isMulti
           />
-
-          {/* Accommodation */}
-          <div className="relative z-10">
-            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <div className="w-full">
+            <h2 className="text-sm font-semibold text-gray-700 mb-2 pl-2">
               Accommodation Required
             </h2>
-            <div className="grid grid-cols-4 gap-3">
-              {["25th", "26th", "27th", "28th"].map((day) => (
+
+            <div className="grid grid-cols-5 gap-2 px-2">
+              {["25th", "26th", "27th", "28th", "29th"].map((day) => (
                 <div
                   key={day}
                   onClick={() => toggleMulti("date", day)}
-                  className={`relative flex flex-col items-center justify-center py-12 px-2 rounded-xl border ${bordered(
+                  className={`relative flex flex-col items-center justify-center px-7 py-4 rounded-xl border ${bordered(
                     "date",
                     day
-                  )} text-sm bg-white cursor-pointer`}
+                  )} text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer`}
                 >
                   <div
-                    className="absolute top-1 left-1 w-16 h-16 bg-contain bg-no-repeat bg-center"
+                    className="absolute top-1 left-1 w-10 h-10 sm:w-5 sm:h-5 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-contain bg-no-repeat bg-center"
                     style={{ backgroundImage: 'url("date.svg")' }}
                   />
-                  <span className="mt-6 whitespace-nowrap font-medium text-xs md:text-sm">
+
+                  <span className="mt-5 text-[10px] sm:text-xs text-center font-medium">
                     {day} Aug
                   </span>
                 </div>
@@ -155,9 +153,7 @@ export default function GuestRSVP_Selected() {
             </div>
           </div>
         </div>
-
-        {/* Save Button */}
-        <div className="w-full max-w-md mt-6 mx-auto">
+        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mt-6 mx-auto">
           <button className="w-full bg-[#ef4444] text-white py-3 rounded-xl font-bold text-lg md:text-xl">
             SAVE
           </button>
@@ -204,7 +200,9 @@ function Category({
                 label === "Anything" ? "w-10 h-10" : "w-8 h-8"
               } mb-1 md:w-10 md:h-10`}
             />
-            <span className="text-xs md:text-sm">{label}</span>
+            <span className="text-xs md:text-sm text-center w-full whitespace-nowrap">
+              {label}
+            </span>
           </div>
         ))}
       </div>
