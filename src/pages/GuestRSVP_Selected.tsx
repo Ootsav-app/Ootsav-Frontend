@@ -44,126 +44,120 @@ export default function GuestRSVP_Selected() {
     isSelected(category, label) ? "border-red-500" : "border-gray-300";
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-no-repeat bg-center flex flex-col items-center justify-start px-4 py-6 md:px-8"
-      style={{ backgroundImage: 'url("/back.svg")' }}
-    >
-      <div className="flex items-center w-full max-w-xl text-white mb-2 px-2">
-        <button className="rounded-full p-2 mr-3 bg-white/20">
-          <GoArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
-        </button>
-        <span className="text-lg md:text-xl font-medium">Event Overview</span>
-      </div>
+    <div className="w-full min-h-screen bg-white flex flex-col items-center">
+      {/* Top half: back.svg background */}
+      <div
+        className="w-full min-h-[50vh] bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url("back.svg")' }}
+      />
 
-      <p className="text-white mb-6 text-sm md:text-base px-4 text-center max-w-xl">
-        Please share these details to help us plan better!
-      </p>
-
-      {/* Form Card */}
-      <div className="relative bg-[#fff5f8] w-full max-w-xl min-w-[342px] rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12">
-        <div className="absolute inset-0 z-0 rounded-xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-[#ffd4e2] to-white" />
+      {/* Content starts here */}
+      <div className="-mt-90 w-full px-4 md:px-8 flex flex-col items-center">
+        {/* Header */}
+        <div className="flex items-center w-full max-w-md text-white mb-2 px-4 md:px-10">
+          <button className="rounded-full p-2 mr-3 bg-white/20">
+            <GoArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
+          </button>
+          <span className="text-lg md:text-xl font-medium">Event Overview</span>
         </div>
 
-        {/* Personal Details */}
-        <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
-            Personal Details
-          </h2>
-          <input type="text" placeholder="Name*" className={inputStyle} />
-          <input
-            type="tel"
-            placeholder="Phone Number*"
-            className={inputStyle}
+        {/* Subtitle */}
+        <p className="text-white mb-6 text-sm md:text-base text-center max-w-md">
+          Please share these details to help us plan better!
+        </p>
+
+        {/* Form Card */}
+        <div className="relative w-full max-w-md min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12 bg-gradient-to-t from-[#fdcfc8] to-white">
+          {/* Personal Info */}
+          <div className="relative z-10">
+            <h2 className="text-sm font-semibold text-gray-700 mb-2">Personal Details</h2>
+            <input type="text" placeholder="Name*" className={inputStyle} />
+            <input type="tel" placeholder="Phone Number*" className={inputStyle} />
+            <input type="email" placeholder="Email Id" className={inputStyle} />
+            <textarea placeholder="Personal Note" rows={2} className={inputStyle} />
+          </div>
+
+          {/* RSVP */}
+          <Category
+            title="RSVP Status"
+            options={[
+              { src: "tick.svg", label: "Attending" },
+              { src: "cross.svg", label: "Not Attending" },
+              { src: "maybe.svg", label: "Maybe" },
+            ]}
+            selected={selected.rsvp}
+            onSelect={(label) => toggleSingle("rsvp", label)}
           />
-          <input type="email" placeholder="Email Id" className={inputStyle} />
-          <textarea
-            placeholder="Personal Note"
-            rows={2}
-            className={inputStyle}
+
+          {/* Guest Count */}
+          <Category
+            title="Additional Guest Count"
+            options={[
+              { src: "+1.svg", label: "+1" },
+              { src: "+2.svg", label: "+2" },
+              { src: "family.svg", label: "+ Family" },
+            ]}
+            selected={selected.guest}
+            onSelect={(label) => toggleSingle("guest", label)}
           />
-        </div>
 
-        {/* RSVP Status */}
-        <Category
-          title="RSVP Status"
-          options={[
-            { src: "/tick.svg", label: "Attending" },
-            { src: "/cross.svg", label: "Not Attending" },
-            { src: "/maybe.svg", label: "Maybe" },
-          ]}
-          selected={selected.rsvp}
-          onSelect={(label) => toggleSingle("rsvp", label)}
-        />
+          {/* Food */}
+          <Category
+            title="Food Preference"
+            options={[
+              { src: "veg.svg", label: "Veg" },
+              { src: "nonveg.svg", label: "Non-Veg" },
+              { src: "vn.svg", label: "Anything" },
+            ]}
+            selected={selected.food}
+            onSelect={(label) => toggleSingle("food", label)}
+          />
 
-        {/* Guest Count */}
-        <Category
-          title="Additional Guest Count"
-          options={[
-            { src: "/+1.svg", label: "+1" },
-            { src: "/+2.svg", label: "+2" },
-            { src: "/family.svg", label: "+ Family" },
-          ]}
-          selected={selected.guest}
-          onSelect={(label) => toggleSingle("guest", label)}
-        />
+          {/* Alcohol */}
+          <Category
+            title="Alcohol Preference"
+            options={[
+              { src: "Wine.svg", label: "Wine" },
+              { src: "gin.svg", label: "Gin" },
+              { src: "vodka.svg", label: "Vodka" },
+              { src: "beer.svg", label: "Beer" },
+            ]}
+            selected={selected.alcohol}
+            onSelect={(label) => toggleMulti("alcohol", label)}
+            gridCols="grid-cols-4"
+            isMulti
+          />
 
-        {/* Food Preference */}
-        <Category
-          title="Food Preference"
-          options={[
-            { src: "/veg.svg", label: "Veg" },
-            { src: "/nonveg.svg", label: "Non-Veg" },
-            { src: "/vn.svg", label: "Anything" },
-          ]}
-          selected={selected.food}
-          onSelect={(label) => toggleSingle("food", label)}
-        />
-
-        {/* Alcohol*/}
-        <Category
-          title="Alcohol Preference"
-          options={[
-            { src: "/Wine.svg", label: "Wine" },
-            { src: "/gin.svg", label: "Gin" },
-            { src: "/vodka.svg", label: "Vodka" },
-            { src: "/beer.svg", label: "Beer" },
-          ]}
-          selected={selected.alcohol}
-          onSelect={(label) => toggleMulti("alcohol", label)}
-          gridCols="grid-cols-4"
-          isMulti
-        />
-
-        {/* Dates */}
-        <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
-            Accommodation Required
-          </h2>
-          <div className="grid grid-cols-4 gap-3">
-            {["25th", "26th", "27th", "28th"].map((day) => (
-              <div
-                key={day}
-                onClick={() => toggleMulti("date", day)}
-                className={`relative flex flex-col items-center justify-center py-12 px-2 rounded-xl border ${bordered(
-                  "date",
-                  day
-                )} text-sm bg-white cursor-pointer`}
-              >
+          {/* Accommodation */}
+          <div className="relative z-10">
+            <h2 className="text-sm font-semibold text-gray-700 mb-2">
+              Accommodation Required
+            </h2>
+            <div className="grid grid-cols-4 gap-3">
+              {["25th", "26th", "27th", "28th"].map((day) => (
                 <div
-                  className="absolute top-1 left-1 w-16 h-16 bg-contain bg-no-repeat bg-center"
-                  style={{ backgroundImage: 'url("/date.svg")' }}
-                />
-                <span className="mt-6 whitespace-nowrap font-medium text-xs md:text-sm">
-                  {day} Aug
-                </span>
-              </div>
-            ))}
+                  key={day}
+                  onClick={() => toggleMulti("date", day)}
+                  className={`relative flex flex-col items-center justify-center py-12 px-2 rounded-xl border ${bordered(
+                    "date",
+                    day
+                  )} text-sm bg-white cursor-pointer`}
+                >
+                  <div
+                    className="absolute top-1 left-1 w-16 h-16 bg-contain bg-no-repeat bg-center"
+                    style={{ backgroundImage: 'url("date.svg")' }}
+                  />
+                  <span className="mt-6 whitespace-nowrap font-medium text-xs md:text-sm">
+                    {day} Aug
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Save Button */}
-        <div className="relative z-10">
+        <div className="w-full max-w-md mt-6 mx-auto">
           <button className="w-full bg-[#ef4444] text-white py-3 rounded-xl font-bold text-lg md:text-xl">
             SAVE
           </button>

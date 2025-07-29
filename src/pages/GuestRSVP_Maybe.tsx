@@ -11,7 +11,7 @@ export default function GuestRSVP_Maybe() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-10 sm:py-14 h-[65vh] flex flex-col justify-center items-center">
+        <div className="w-full py-10 pb-35 sm:py-14 h-[65vh] flex flex-col justify-center items-center">
           {/* Icon */}
           <img
             src="/confused.svg"
@@ -20,10 +20,10 @@ export default function GuestRSVP_Maybe() {
           />
 
           {/* Headings */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  mb-2">
             Keeping Things Open?
           </h1>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  mb-6">
             We Get It!
           </h1>
 

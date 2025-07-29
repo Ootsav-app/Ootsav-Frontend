@@ -10,7 +10,7 @@ export default function GuestRSVP_NotAttending() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-10 sm:py-14 h-[65vh] flex flex-col justify-center items-center">
+        <div className="w-full py-10 pb-30 sm:py-14 h-[65vh] flex flex-col justify-center items-center">
           <img
             src="/heartbreak.svg"
             alt="Heartbreak Icon"
@@ -23,7 +23,7 @@ export default function GuestRSVP_NotAttending() {
 
           <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-md leading-relaxed">
             Sad you can't make it, but we get it — life happens! You can still
-            update your RSVP on the app before <strong>.....</strong>.
+            update your RSVP on the app before <strong>20 December</strong>.
           </p>
         </div>
       </div>
