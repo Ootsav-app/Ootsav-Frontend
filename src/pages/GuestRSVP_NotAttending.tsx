@@ -2,15 +2,15 @@ export default function GuestRSVP_NotAttending() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div
-        className="rounded-b-3xl text-white flex flex-col items-center text-center px-4 sm:px-6 relative"
+        className="text-white flex flex-col items-center text-center px-4 sm:px-6 relative bg-[#272938]"
         style={{
-          backgroundImage: "url('/back.svg')",
+          backgroundImage: "url('/back1.svg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-10 pb-30 sm:py-14 h-[65vh] flex flex-col justify-center items-center">
+        <div className="w-full py-10 pb-30 sm:py-14 h-[55vh] flex flex-col justify-center items-center">
           <img
             src="/heartbreak.svg"
             alt="Heartbreak Icon"

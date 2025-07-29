@@ -45,24 +45,24 @@ export default function GuestRSVP_Selected() {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center">
-      
       <div
-        className="w-full min-h-[50vh] bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("back.svg")' }}
+        className="w-full min-h-[50vh] bg-cover bg-center bg-no-repeat bg-[#272938]"
+        style={{ backgroundImage: 'url("back1.svg")' }}
       />
+
       <div className="-mt-90 w-full px-4 md:px-8 flex flex-col items-center">
-       
         <div className="flex items-center w-full max-w-2xl text-white mb-2 px-4 md:px-10">
           <button className="rounded-full p-2 mr-3 bg-white/20">
             <GoArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
           </button>
           <span className="text-lg md:text-xl font-medium">Event Overview</span>
         </div>
+
         <p className="text-white mb-6 text-sm md:text-base text-center max-w-2xl">
           Please share these details to help us plan better!
         </p>
+
         <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12 bg-gradient-to-t from-[#fdcfc8] to-white">
-        
           <div className="relative z-10">
             <h2 className="text-sm font-semibold text-gray-700 mb-2">
               Personal Details
@@ -90,17 +90,17 @@ export default function GuestRSVP_Selected() {
             selected={selected.rsvp}
             onSelect={(label) => toggleSingle("rsvp", label)}
           />
-
           <Category
             title="Additional Guest Count"
             options={[
               { src: "+1.svg", label: "+1" },
               { src: "+2.svg", label: "+2" },
-              { src: "family.svg", label: "+ Family" },
+              { src: "family.svg", label: "Family" },
             ]}
             selected={selected.guest}
             onSelect={(label) => toggleSingle("guest", label)}
           />
+
           <Category
             title="Food Preference"
             options={[
@@ -111,7 +111,6 @@ export default function GuestRSVP_Selected() {
             selected={selected.food}
             onSelect={(label) => toggleSingle("food", label)}
           />
-
           <Category
             title="Alcohol Preference"
             options={[
@@ -125,6 +124,7 @@ export default function GuestRSVP_Selected() {
             gridCols="grid-cols-4"
             isMulti
           />
+
           <div className="w-full">
             <h2 className="text-sm font-semibold text-gray-700 mb-2 pl-2">
               Accommodation Required
@@ -141,7 +141,7 @@ export default function GuestRSVP_Selected() {
                   )} text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer`}
                 >
                   <div
-                    className="absolute top-1 left-1 w-10 h-10 sm:w-5 sm:h-5 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-contain bg-no-repeat bg-center"
+                    className="absolute top-1 left-1 w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 bg-contain bg-no-repeat bg-center" // Adjusted size and position
                     style={{ backgroundImage: 'url("date.svg")' }}
                   />
 
@@ -153,7 +153,8 @@ export default function GuestRSVP_Selected() {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mt-6 mx-auto">
+
+        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mt-6 mx-auto pb-10">
           <button className="w-full bg-[#ef4444] text-white py-3 rounded-xl font-bold text-lg md:text-xl">
             SAVE
           </button>

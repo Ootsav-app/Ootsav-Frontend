@@ -3,15 +3,15 @@ export default function GuestRSVP_Attending() {
     <div className="min-h-screen flex flex-col bg-white">
       {/* Top Gradient Section */}
       <div
-        className="flex flex-col items-center justify-center text-center text-white px-4 sm:px-6 relative rounded-b-3xl"
+        className="flex flex-col  items-center justify-center text-center text-white px-4 sm:px-6 relative bg-[#272938]"
         style={{
-          backgroundImage: `url('/back.svg')`,
+          backgroundImage: `url('/back1.svg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-1 pb-30 sm:py-14 h-[60vh] flex flex-col justify-center items-center">
+        <div className="w-full py-1 pb-30 sm:py-14 h-[55vh] flex flex-col justify-center items-center">
           <img
             src="/Confetti.svg"
             alt="Confetti"
