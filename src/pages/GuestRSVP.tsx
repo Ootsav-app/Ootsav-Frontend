@@ -3,11 +3,11 @@ import { GoArrowLeft } from "react-icons/go";
 export default function GuestRSVP() {
   return (
     <div
-      className="min-h-screen bg-cover bg-no-repeat bg-center flex flex-col items-center justify-start px-4 py-6 md:px-8"
+      className="flex flex-col items-center justify-start min-h-screen px-4 py-6 bg-center bg-no-repeat bg-cover md:px-8"
       style={{ backgroundImage: 'url("/back.svg")' }}
     >
-      <div className="flex items-center w-full max-w-xl text-white mb-6 px-2">
-        <button className="rounded-full p-2 mr-3 bg-white/20">
+      <div className="flex items-center w-full max-w-xl px-2 mb-6 text-white">
+        <button className="p-2 mr-3 rounded-full bg-white/20">
           <GoArrowLeft className="w-6 h-6" />
         </button>
         <span className="text-lg font-medium">Event Overview</span>
@@ -15,40 +15,40 @@ export default function GuestRSVP() {
 
       {/* Form Card */}
       <div className="relative bg-[#fff5f8] w-full max-w-xl rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12">
-        <div className="absolute inset-0 z-0 rounded-xl overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden rounded-xl">
           <div className="absolute inset-0 bg-gradient-to-t from-[#ffd4e2] to-white" />
         </div>
 
         {/* Personal Details */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             Personal Details
           </h2>
           <input
             type="text"
             placeholder="Name*"
-            className="w-full mb-3 px-4 py-3 border border-gray-300 rounded-xl text-sm bg-white"
+            className="w-full px-4 py-3 mb-3 text-sm bg-white border border-gray-300 rounded-xl"
           />
           <input
             type="tel"
             placeholder="Phone Number*"
-            className="w-full mb-3 px-4 py-3 border border-gray-300 rounded-xl text-sm bg-white"
+            className="w-full px-4 py-3 mb-3 text-sm bg-white border border-gray-300 rounded-xl"
           />
           <input
             type="email"
             placeholder="Email Id"
-            className="w-full mb-3 px-4 py-3 border border-gray-300 rounded-xl text-sm bg-white"
+            className="w-full px-4 py-3 mb-3 text-sm bg-white border border-gray-300 rounded-xl"
           />
           <textarea
             placeholder="Personal Note"
             rows={2}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm bg-white"
+            className="w-full px-4 py-3 text-sm bg-white border border-gray-300 rounded-xl"
           />
         </div>
 
         {/* RSVP Status */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             RSVP Status
           </h2>
           <div className="grid grid-cols-3 gap-3">
@@ -59,7 +59,7 @@ export default function GuestRSVP() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 bg-white text-sm"
+                className="flex flex-col items-center justify-center p-3 text-sm bg-white border border-gray-300 rounded-xl"
               >
                 <img src={item.src} alt={item.label} className="w-8 h-8 mb-1" />
                 <span>{item.label}</span>
@@ -70,7 +70,7 @@ export default function GuestRSVP() {
 
         {/* Guest Count */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             Additional Guest Count
           </h2>
           <div className="grid grid-cols-3 gap-3">
@@ -81,7 +81,7 @@ export default function GuestRSVP() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 bg-white text-sm"
+                className="flex flex-col items-center justify-center p-3 text-sm bg-white border border-gray-300 rounded-xl"
               >
                 <img src={item.src} alt={item.label} className="w-8 h-8 mb-1" />
                 <span>{item.label}</span>
@@ -92,7 +92,7 @@ export default function GuestRSVP() {
 
         {/* Food Preference */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             Food Preference
           </h2>
           <div className="grid grid-cols-3 gap-3">
@@ -103,7 +103,7 @@ export default function GuestRSVP() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 bg-white text-sm"
+                className="flex flex-col items-center justify-center p-3 text-sm bg-white border border-gray-300 rounded-xl"
               >
                 <img
                   src={item.src}
@@ -120,7 +120,7 @@ export default function GuestRSVP() {
 
         {/* Alcohol Preference */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             Alcohol Preference
           </h2>
           <div className="grid grid-cols-4 gap-3">
@@ -132,7 +132,7 @@ export default function GuestRSVP() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 bg-white text-sm"
+                className="flex flex-col items-center justify-center p-3 text-sm bg-white border border-gray-300 rounded-xl"
               >
                 <img src={item.src} alt={item.label} className="w-8 h-8 mb-1" />
                 <span>{item.label}</span>
@@ -143,20 +143,20 @@ export default function GuestRSVP() {
 
         {/* Accommodation Dates */}
         <div className="relative z-10">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">
             Accommodation Required
           </h2>
           <div className="grid grid-cols-4 gap-3">
             {["25th", "26th", "27th", "28th"].map((day, i) => (
               <div
                 key={i}
-                className="relative flex flex-col items-center justify-center py-12 px-2 rounded-xl border border-gray-300 text-sm bg-white"
+                className="relative flex flex-col items-center justify-center px-2 py-12 text-sm bg-white border border-gray-300 rounded-xl"
               >
                 <div
-                  className="absolute top-1 left-1 w-16 h-16 bg-contain bg-no-repeat bg-center"
+                  className="absolute w-16 h-16 bg-center bg-no-repeat bg-contain top-1 left-1"
                   style={{ backgroundImage: 'url("/date.svg")' }}
                 />
-                <span className="mt-6 whitespace-nowrap font-medium">
+                <span className="mt-6 font-medium whitespace-nowrap">
                   {day} Aug
                 </span>
               </div>
