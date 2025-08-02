@@ -15,27 +15,20 @@ export default function CustomPhoneInput({ control, error }: PhoneInputProps) {
       <Controller
         control={control}
         name="phone"
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <div
-            className={`flex items-center w-full rounded-xl border px-4 py-3 text-sm md:text-base transition duration-200 focus-within:outline-none bg-white ${
+            className={`rounded-xl p-4 overflow-hidden transition duration-200 bg-white ${
               error
-                ? "border-red-500 focus-within:ring-2 focus-within:ring-red-500"
-                : "border-gray-300 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500"
+                ? "border border-red-500 ring-2 ring-red-500"
+                : "border border-gray-300 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500"
             }`}
           >
             <PhoneInput
               international
-              defaultCountry="US"
+              defaultCountry="IN"
               value={value}
               onChange={onChange}
-              inputComponent={({ ...props }) => (
-                <input
-                  {...props}
-                  ref={ref}
-                  className="flex-1 bg-transparent border-none outline-none"
-                />
-              )}
-              className="flex items-center w-full"
+              className="w-full text-sm PhoneInput md:text-base"
             />
           </div>
         )}

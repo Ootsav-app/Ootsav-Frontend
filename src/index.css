@@ -23,6 +23,8 @@
   animation: fade-in 0.2s ease-out;
 }
 /* styles/globals.css */
-.react-phone-number-input input {
-  @apply w-full px-4 py-3 text-sm bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent;
+.PhoneInputInput {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }

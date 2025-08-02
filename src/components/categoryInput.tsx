@@ -27,7 +27,7 @@ export default function Category({
 }: CategoryProps) {
   return (
     <div className="relative z-10">
-      <h2 className="mb-2 text-sm font-semibold text-gray-700">
+      <h2 className="mb-2 text-lg font-semibold text-gray-700">
         {title}
         {required && <span className="ml-1 text-red-500">*</span>}
       </h2>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { GoArrowLeft } from "react-icons/go";
+// import { GoArrowLeft } from "react-icons/go";
 import FormInput from "./FormInput";
 import {
   type GuestRSVPFormData,
@@ -37,7 +37,6 @@ export default function GuestRSVP() {
     setIsSubmitting(true);
     const data = getValues();
 
-    // Validate form
     const validationErrors = validateForm(data);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -48,10 +47,7 @@ export default function GuestRSVP() {
 
     try {
       console.log("Form submitted:", data);
-
-      // Clear any previous errors
       setErrors({});
-
       alert("Form submitted successfully! Check console for data.");
     } catch (error) {
       console.error("Submission error:", error);
@@ -61,7 +57,6 @@ export default function GuestRSVP() {
     }
   };
 
-  // Clear specific error when user starts typing/selecting
   const clearError = (fieldName: keyof FormErrors) => {
     if (errors[fieldName]) {
       setErrors((prev) => {
@@ -73,31 +68,35 @@ export default function GuestRSVP() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen bg-white">
+    <div className="flex flex-col items-center w-full min-h-screen pt-10 pb-10 bg-white">
+      {/* Background Image */}
       <div
-        className="w-full min-h-screen h-full bg-cover bg-center bg-fixed bg-[#272938] fixed inset-0"
+        className="w-full h-full bg-cover bg-center bg-fixed bg-[#272938] fixed inset-0"
         style={{ backgroundImage: 'url("back1.svg")' }}
       />
 
       <div className="relative z-10 flex flex-col items-center w-full px-4 md:px-8">
-        <div className="flex items-center w-full max-w-2xl px-4 mb-2 text-white md:px-10">
+        <div className="flex items-center w-full max-w-2xl mb-2 text-white ">
+          {/* Back Button - Temporarily commented */}
+          {/*
           <button className="p-2 mr-3 transition-colors rounded-full bg-white/20 hover:bg-white/30">
             <GoArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
           </button>
-          <span className="text-lg font-medium md:text-xl">Event Overview</span>
+          */}
+          <span className="text-xl font-medium md:text-3xl">
+            Event Overview
+          </span>
         </div>
-
-        <p className="max-w-2xl mb-6 text-sm text-center text-white md:text-base">
+        <p className="w-full max-w-2xl mb-6 text-lg text-white text-start md:text-base">
           Please share these details to help us plan better!
         </p>
-
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 space-y-8 overflow-hidden md:px-10 md:py-12 bg-gradient-to-t from-[#fdcfc8] to-white"
+          className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 md:px-10 md:pt-14 md:pb-4 space-y-8 bg-gradient-to-t from-[#fdcfc8] to-white"
         >
           {/* Personal Details Section */}
-          <div className="relative z-10">
-            <h2 className="mb-4 text-sm font-semibold text-gray-700">
+          <div className="relative z-10 space-y-4">
+            <h2 className="mb-2 text-base font-semibold text-gray-700">
               Personal Details
             </h2>
 
@@ -150,7 +149,7 @@ export default function GuestRSVP() {
             />
           </div>
 
-          {/* Conditional sections - only show if attending */}
+          {/* Conditional Sections */}
           {isAttending && (
             <>
               <div onClick={() => clearError("guest")}>

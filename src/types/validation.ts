@@ -6,6 +6,7 @@ export interface GuestRSVPFormData {
   personalNote: string;
   rsvp: "Attending" | "Not Attending" | "Maybe" | "";
   guest: string;
+  familyMembers?: string;
   food: string;
   alcohol: string;
   accommodationDates: string[];
@@ -18,6 +19,7 @@ export interface FormErrors {
   personalNote?: string;
   rsvp?: string;
   guest?: string;
+  familyMembers?: string;
   food?: string;
   alcohol?: string;
   accommodationDates?: string;

@@ -1,10 +1,10 @@
 import { Controller } from "react-hook-form";
-import type { Control } from "react-hook-form";
+import type { Control, FieldError, Merge } from "react-hook-form";
 import type { GuestRSVPFormData } from "../types/validation";
 
 interface AccommodationDatesProps {
   control: Control<GuestRSVPFormData>;
-  error?: string;
+  error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 }
 
 const dates = ["25th", "26th", "27th", "28th", "29th"];
@@ -15,7 +15,7 @@ export default function AccommodationDates({
 }: AccommodationDatesProps) {
   return (
     <div className="w-full">
-      <h2 className="pl-2 mb-2 text-sm font-semibold text-gray-700">
+      <h2 className="pl-2 mb-2 text-lg font-semibold text-gray-700">
         Accommodation Required
       </h2>
 
@@ -44,11 +44,11 @@ export default function AccommodationDates({
                   } text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer hover:border-red-300 transition-colors`}
                 >
                   <div
-                    className="absolute w-4 h-4 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-4 sm:h-4 md:w-5 md:h-5"
+                    className="absolute w-5 h-5 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-5 sm:h-5 md:w-6 md:h-6"
                     style={{ backgroundImage: 'url("date.svg")' }}
                   />
 
-                  <span className="mt-5 text-xs font-medium text-center sm:text-sm">
+                  <span className="mt-5 text-[10px] sm:text-xs text-center font-medium">
                     {day} Aug
                   </span>
                 </div>
@@ -57,7 +57,9 @@ export default function AccommodationDates({
           </div>
         )}
       />
-      {error && <p className="px-1 mt-2 text-xs text-red-500">{error}</p>}
+      {error && (
+        <p className="px-1 mt-2 text-xs text-red-500">{error.message}</p>
+      )}
     </div>
   );
 }

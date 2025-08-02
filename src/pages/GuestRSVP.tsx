@@ -143,7 +143,7 @@ export default function GuestRSVP() {
 
         {/* Accommodation Dates */}
         <div className="relative z-10">
-          <h2 className="mb-2 text-sm font-semibold text-gray-700">
+          <h2 className="mb-2 text-lg font-semibold text-gray-700">
             Accommodation Required
           </h2>
           <div className="grid grid-cols-4 gap-3">
