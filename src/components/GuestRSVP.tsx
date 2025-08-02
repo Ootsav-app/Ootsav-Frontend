@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-// import { GoArrowLeft } from "react-icons/go";
+
 import FormInput from "./FormInput";
 import {
   type GuestRSVPFormData,
@@ -69,7 +69,6 @@ export default function GuestRSVP() {
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen pt-10 pb-10 bg-white">
-      {/* Background Image */}
       <div
         className="w-full h-full bg-cover bg-center bg-fixed bg-[#272938] fixed inset-0"
         style={{ backgroundImage: 'url("back1.svg")' }}
@@ -133,7 +132,6 @@ export default function GuestRSVP() {
             />
           </div>
 
-          {/* RSVP Status */}
           <div onClick={() => clearError("rsvp")}>
             <Category
               title="RSVP Status"
@@ -149,7 +147,6 @@ export default function GuestRSVP() {
             />
           </div>
 
-          {/* Conditional Sections */}
           {isAttending && (
             <>
               <div onClick={() => clearError("guest")}>
@@ -204,7 +201,6 @@ export default function GuestRSVP() {
             </>
           )}
 
-          {/* Submit Button */}
           <div className="w-full pt-4">
             <button
               type="submit"

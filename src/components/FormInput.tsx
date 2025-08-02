@@ -43,7 +43,7 @@ export default function FormInput({
         <textarea
           {...register(name)}
           rows={rows}
-          placeholder=" " // invisible placeholder to make peer-placeholder-shown work
+          placeholder=" " 
           className={`peer w-full px-4 py-3 border rounded-xl text-sm md:text-base bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none ${borderColor}`}
         />
         <label htmlFor={name} className={labelClasses}>

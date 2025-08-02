@@ -4,7 +4,7 @@ import type { GuestRSVPFormData } from "../types/validation";
 
 interface AccommodationDatesProps {
   control: Control<GuestRSVPFormData>;
-  error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
+  error?: string | undefined;
 }
 
 const dates = ["25th", "26th", "27th", "28th", "29th"];
@@ -57,9 +57,7 @@ export default function AccommodationDates({
           </div>
         )}
       />
-      {error && (
-        <p className="px-1 mt-2 text-xs text-red-500">{error.message}</p>
-      )}
+      {error && <p className="px-1 mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

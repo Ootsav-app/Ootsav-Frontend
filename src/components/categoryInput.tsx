@@ -49,7 +49,7 @@ export default function Category({
                     : [...currentArray, label];
                   onChange(newValue);
                 } else {
-                  // For single selection, if clicking the same item, deselect it
+                  
                   onChange(value === label ? "" : label);
                 }
               };
