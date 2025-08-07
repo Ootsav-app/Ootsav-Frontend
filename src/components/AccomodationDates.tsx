@@ -39,9 +39,9 @@ export default function AccommodationDates({
                 <div
                   key={day}
                   onClick={handleClick}
-                  className={`relative flex flex-col items-center justify-center px-7 py-4 rounded-xl border ${
+                  className={`relative flex flex-col items-center justify-center px-7 py-4 rounded-xl border-2 ${
                     isSelected ? "border-red-500 bg-red-50" : "border-gray-300"
-                  } text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer hover:border-red-300 transition-colors`}
+                  } text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer  transition-colors`}
                 >
                   <div
                     className="absolute w-5 h-5 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-5 sm:h-5 md:w-6 md:h-6"

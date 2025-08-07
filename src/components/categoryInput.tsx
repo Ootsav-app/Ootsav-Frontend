@@ -49,7 +49,6 @@ export default function Category({
                     : [...currentArray, label];
                   onChange(newValue);
                 } else {
-                  
                   onChange(value === label ? "" : label);
                 }
               };
@@ -58,9 +57,9 @@ export default function Category({
                 <div
                   key={label}
                   onClick={handleClick}
-                  className={`flex flex-col items-center justify-center p-3 rounded-xl border ${
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl border-2 ${
                     isSelected ? "border-red-500 bg-red-50" : "border-gray-300"
-                  } bg-white text-sm cursor-pointer hover:border-red-300 transition-colors`}
+                  } bg-white text-sm cursor-pointer  transition-colors`}
                 >
                   <img
                     src={src}
