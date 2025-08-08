@@ -39,16 +39,16 @@ export default function AccommodationDates({
                 <div
                   key={day}
                   onClick={handleClick}
-                  className={`relative flex flex-col items-center justify-center px-7 py-4 rounded-xl border-2 ${
+                  className={`relative flex flex-col items-center justify-center px-8 py-6 rounded-xl border-2 ${
                     isSelected ? "border-red-500 bg-red-50" : "border-gray-300"
                   } text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer  transition-colors`}
                 >
                   <div
-                    className="absolute w-5 h-5 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                    className="absolute w-13 h-13 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-13 sm:h-13 md:w-15 md:h-15"
                     style={{ backgroundImage: 'url("date.svg")' }}
                   />
 
-                  <span className="mt-5 text-[10px] sm:text-xs text-center font-medium">
+                  <span className="mt-5 text-[10px] sm:text-lg text-center font-medium">
                     {day} Aug
                   </span>
                 </div>

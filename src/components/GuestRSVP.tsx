@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import FormInput from "./FormInput";
 import {
@@ -14,6 +15,8 @@ import CustomPhoneInput from "./PhoneInput";
 export default function GuestRSVP() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const { register, control, handleSubmit, watch, getValues } =
     useForm<GuestRSVPFormData>({
@@ -48,7 +51,14 @@ export default function GuestRSVP() {
     try {
       console.log("Form submitted:", data);
       setErrors({});
-      alert("Form submitted successfully! Check console for data.");
+      if (data.rsvp === "Attending") {
+        navigate("/guest-rsvp-attending");
+      } else if (data.rsvp === "Not Attending") {
+        navigate("/guest-rsvp-not-attending");
+      } else if (data.rsvp === "Maybe") {
+        navigate("/guest-rsvp-maybe");
+      }
+
     } catch (error) {
       console.error("Submission error:", error);
       alert("Error submitting form. Please try again.");
@@ -68,9 +78,9 @@ export default function GuestRSVP() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen pt-10 pb-10 bg-white">
+    <div className="flex flex-col items-center w-full min-h-screen pt-20 pb-10 bg-white">
       <div
-        className="w-full h-full bg-cover bg-center bg-fixed bg-[#272938] fixed inset-0"
+        className="w-full h-full bg-cover bg-center bg-fixed bg-[#272938] fixed inset-0 "
         style={{ backgroundImage: 'url("back1.svg")' }}
       />
 
@@ -86,14 +96,14 @@ export default function GuestRSVP() {
             Event Overview
           </span>
         </div>
-        <p className="w-full max-w-2xl mb-6 text-lg text-white text-start md:text-base">
+        <p className="w-full max-w-2xl mb-6 text-xl text-white text-start md:text-xl">
           Please share these details to help us plan better!
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl min-w-[342px] mx-auto rounded-xl shadow-md px-4 py-6 md:px-10 md:pt-14 md:pb-4 space-y-8 bg-gradient-to-t from-[#fdcfc8] to-white"
         >
-          {/* Personal Details Section */}
+          {/* Personal Details */}
           <div className="relative z-10 space-y-4">
             <h2 className="mb-2 text-base font-semibold text-gray-700">
               Personal Details
@@ -132,6 +142,7 @@ export default function GuestRSVP() {
             />
           </div>
 
+          {/* RSVP */}
           <div onClick={() => clearError("rsvp")}>
             <Category
               title="RSVP Status"
