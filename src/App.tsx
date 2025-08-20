@@ -4,7 +4,6 @@ import GuestRSVP from "./pages/GuestRSVP";
 import GuestRSVP_Attending from "./pages/GuestRSVP_Attending";
 import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
 import GuestRSVP_Maybe from "./pages/GuestRSVP_Maybe";
-import GuestRSVP_Selected from "./pages/GuestRSVP_Selected";
 
 const ROUTES = {
   GUEST_RSVP: "/guest-rsvp-selected",
