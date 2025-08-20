@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import type { Control, FieldError, Merge } from "react-hook-form";
+import type { Control} from "react-hook-form";
 import type { GuestRSVPFormData } from "../types/validation";
 
 interface AccommodationDatesProps {
@@ -44,7 +44,7 @@ export default function AccommodationDates({
                   } text-[10px] sm:text-xs md:text-sm bg-white cursor-pointer  transition-colors`}
                 >
                   <div
-                    className="absolute w-13 h-13 bg-center bg-no-repeat bg-contain top-1 left-1 sm:w-13 sm:h-13 md:w-15 md:h-15"
+                    className="absolute bg-center bg-no-repeat bg-contain w-13 h-13 top-1 left-1 sm:w-13 sm:h-13 md:w-15 md:h-15"
                     style={{ backgroundImage: 'url("date.svg")' }}
                   />
 

@@ -1,6 +1,6 @@
 export default function GuestRSVP_Attending() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Top Gradient Section */}
       <div
         className="flex flex-col  items-center justify-center text-center text-white px-4 sm:px-6 relative bg-[#272938]"
@@ -15,10 +15,10 @@ export default function GuestRSVP_Attending() {
           <img
             src="/Confetti.svg"
             alt="Confetti"
-            className="w-16 sm:w-24 md:w-28 lg:w-32 h-auto mb-6"
+            className="w-16 h-auto mb-6 sm:w-24 md:w-28 lg:w-32"
           />
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4">
+          <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
             You’re In!
           </h1>
 
@@ -26,7 +26,8 @@ export default function GuestRSVP_Attending() {
             Thanks for RSVPing—we can’t wait to see you there!
           </p>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 max-w-[90%] sm:max-w-md leading-relaxed">
-            Want to stay in the loop for all the fun updates, photos, and surprises?
+            Want to stay in the loop for all the fun updates, photos, and
+            surprises?
           </p>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-md leading-relaxed">
             Download the app and don’t miss a thing.
@@ -35,7 +36,7 @@ export default function GuestRSVP_Attending() {
       </div>
 
       {/* App Download Section */}
-      <div className="bg-white text-black flex flex-col items-center justify-center px-4 py-10 space-y-6 w-full flex-grow">
+      <div className="flex flex-col items-center justify-center flex-grow w-full px-4 py-10 space-y-6 text-black bg-white">
         <img
           src="/play.svg"
           alt="Google Play Store"

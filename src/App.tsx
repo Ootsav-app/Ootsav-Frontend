@@ -7,11 +7,10 @@ import GuestRSVP_Maybe from "./pages/GuestRSVP_Maybe";
 import GuestRSVP_Selected from "./pages/GuestRSVP_Selected";
 
 const ROUTES = {
-  GUEST_RSVP: "/guest-rsvp",
+  GUEST_RSVP: "/guest-rsvp-selected",
   GUEST_RSVP_ATTENDING: "/guest-rsvp-attending",
   GUEST_RSVP_NOT_ATTENDING: "/guest-rsvp-not-attending",
   GUEST_RSVP_MAYBE: "/guest-rsvp-maybe",
-  GUEST_RSVP_SELECTED: "/guest-rsvp-selected",
 } as const;
 
 const App: React.FC = () => {
@@ -30,10 +29,6 @@ const App: React.FC = () => {
             element={<GuestRSVP_NotAttending />}
           />
           <Route path={ROUTES.GUEST_RSVP_MAYBE} element={<GuestRSVP_Maybe />} />
-          <Route
-            path={ROUTES.GUEST_RSVP_SELECTED}
-            element={<GuestRSVP_Selected />}
-          />
 
           <Route
             path="/"

@@ -1,6 +1,6 @@
 export default function GuestRSVP_NotAttending() {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="flex flex-col min-h-screen bg-white">
       <div
         className="text-white flex flex-col items-center text-center px-4 sm:px-6 relative bg-[#272938]"
         style={{
@@ -14,10 +14,10 @@ export default function GuestRSVP_NotAttending() {
           <img
             src="/heartbreak.svg"
             alt="Heartbreak Icon"
-            className="w-16 sm:w-24 md:w-28 lg:w-32 h-auto mb-6"
+            className="w-16 h-auto mb-6 sm:w-24 md:w-28 lg:w-32"
           />
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  mb-6">
+          <h1 className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
             We'll Miss You!
           </h1>
 
@@ -29,7 +29,7 @@ export default function GuestRSVP_NotAttending() {
       </div>
 
       {/* Download Buttons */}
-      <div className="bg-white text-black flex flex-col items-center justify-center px-4 py-10 space-y-6 w-full">
+      <div className="flex flex-col items-center justify-center w-full px-4 py-10 space-y-6 text-black bg-white">
         <img
           src="/play.svg"
           alt="Google Play Store"
