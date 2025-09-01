@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import GuestRSVP from "./pages/GuestRSVP";
 import GuestRSVP_Attending from "./pages/GuestRSVP_Attending";
 import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
@@ -14,33 +14,23 @@ const ROUTES = {
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-gray-50 darker-grotesque">
-        <Routes>
-          <Route path={ROUTES.GUEST_RSVP} element={<GuestRSVP />} />
+    <div className="min-h-screen bg-gray-50 darker-grotesque">
+      <Routes>
+        <Route path={"/"} element={<GuestRSVP />} />
 
-          <Route
-            path={ROUTES.GUEST_RSVP_ATTENDING}
-            element={<GuestRSVP_Attending />}
-          />
-          <Route
-            path={ROUTES.GUEST_RSVP_NOT_ATTENDING}
-            element={<GuestRSVP_NotAttending />}
-          />
-          <Route path={ROUTES.GUEST_RSVP_MAYBE} element={<GuestRSVP_Maybe />} />
+        <Route
+          path={ROUTES.GUEST_RSVP_ATTENDING}
+          element={<GuestRSVP_Attending />}
+        />
+        <Route
+          path={ROUTES.GUEST_RSVP_NOT_ATTENDING}
+          element={<GuestRSVP_NotAttending />}
+        />
+        <Route path={ROUTES.GUEST_RSVP_MAYBE} element={<GuestRSVP_Maybe />} />
 
-          <Route
-            path="/"
-            element={<Navigate to={ROUTES.GUEST_RSVP} replace />}
-          />
-
-          <Route
-            path="*"
-            element={<Navigate to={ROUTES.GUEST_RSVP} replace />}
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
+        <Route path="*" element={<Navigate to={ROUTES.GUEST_RSVP} replace />} />
+      </Routes>
+    </div>
   );
 };
 
