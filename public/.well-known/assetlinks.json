@@ -4,7 +4,9 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.example.ootsav",
-      "sha256_cert_fingerprints": "1D:D5:D1:BF:3F:78:D2:31:65:90:6D:3A:C5:2A:D4:B6:29:1A:96:FA:04:D0:A8:2B:F0:B5:DB:1A:7D:B5:6C:3B"
+      "sha256_cert_fingerprints": [
+        "1D:D5:D1:BF:3F:78:D2:31:65:90:6D:3A:C5:2A:D4:B6:29:1A:96:FA:04:D0:A8:2B:F0:B5:DB:1A:7D:B5:6C:3B"
+      ]
     }
   }
 ]
