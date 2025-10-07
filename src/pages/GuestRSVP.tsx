@@ -11,7 +11,7 @@ import {
 import Category from "../components/categoryInput";
 import AccommodationDates from "../components/AccomodationDates";
 import CustomPhoneInput from "../components/PhoneInput";
-import { getInviteDetails } from "../services/api.ts";
+import { getInviteDetails, submitRSVP } from "../services/api.ts";
 
 export default function GuestRSVP() {
     const [errors, setErrors] = useState<FormErrors>({});
@@ -107,8 +107,13 @@ export default function GuestRSVP() {
         }
 
         try {
-            console.log("Form submitted:", data);
+            // Call the API to submit RSVP
+            await submitRSVP(data, eventId!, groupId!, availableAccommodationDates);
+
+            console.log("Form submitted successfully:", data);
             setErrors({});
+
+            // Navigate based on RSVP status
             if (data.rsvp === "Attending") {
                 navigate("/guest-rsvp-attending");
             } else if (data.rsvp === "Not Attending") {
