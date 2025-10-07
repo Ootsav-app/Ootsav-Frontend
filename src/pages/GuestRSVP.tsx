@@ -9,7 +9,7 @@ import {
     validateForm,
 } from "../types/validation";
 import Category from "../components/categoryInput";
-import AccommodationDates from "../components/AccomodationDates";
+import AccommodationDetails from "../components/AccomodationDetails.tsx";
 import CustomPhoneInput from "../components/PhoneInput";
 import { getInviteDetails, submitRSVP } from "../services/api.ts";
 
@@ -18,7 +18,6 @@ export default function GuestRSVP() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [inviteData, setInviteData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [availableAccommodationDates, setAvailableAccommodationDates] = useState<Date[]>([]);
     const [paramError, setParamError] = useState<string>("");
 
     const [searchParams] = useSearchParams();
@@ -27,10 +26,8 @@ export default function GuestRSVP() {
     const eventId = searchParams.get('eventId');
     const groupId = searchParams.get('groupId');
 
-
-    // url in format /?eventId=b58a0806-61bd-4036-86f0-0c88bd49b10a=123&groupId=d89b5dda-ab0d-4184-b644-26bc2a0b5fc6
-
     // try : http://localhost:5173/?eventId=b58a0806-61bd-4036-86f0-0c88bd49b10a&groupId=d89b5dda-ab0d-4184-b644-26bc2a0b5fc6
+
 
     useEffect(() => {
         if (!eventId || !groupId) {
@@ -46,22 +43,6 @@ export default function GuestRSVP() {
             .then((res) => {
                 const data: any = res.data;
                 setInviteData(data);
-                const eventDetails = data?.event;
-                if (eventDetails?.start_date_time && eventDetails?.end_date_time) {
-                    const startDate = new Date(eventDetails.start_date_time);
-                    const endDate = new Date(startDate);
-                    endDate.setDate(endDate.getDate() + 30);
-                    startDate.setUTCHours(0, 0, 0, 0);
-                    endDate.setUTCHours(0, 0, 0, 0);
-
-                    const dates: Date[] = [];
-                    const currentDate = new Date(startDate);
-                    while (currentDate <= endDate) {
-                        dates.push(new Date(currentDate));
-                        currentDate.setDate(currentDate.getDate() + 1);
-                    }
-                    setAvailableAccommodationDates(dates);
-                }
             })
             .catch((error) => {
                 console.error("Error loading invite details:", error);
@@ -82,13 +63,16 @@ export default function GuestRSVP() {
                 rsvp: "",
                 guest: "",
                 food: "",
-                alcohol: "None",
-                accommodationDates: [],
+                alcohol: "",
+                pickupLocation: "",
+                pickupDateTime: "",
+                dropoffLocation: "",
+                dropoffDateTime: "",
             },
         });
 
     const rsvpStatus = watch("rsvp");
-    const isAttending = rsvpStatus === "Attending";
+    const showRsvpOptions = rsvpStatus === "Attending" || rsvpStatus === "Maybe";
 
     const formConfig = inviteData?.rsvpPreferences?.formConfig;
     const eventDetails = inviteData?.event;
@@ -108,7 +92,7 @@ export default function GuestRSVP() {
 
         try {
             // Call the API to submit RSVP
-            await submitRSVP(data, eventId!, groupId!, availableAccommodationDates);
+            await submitRSVP(data, eventId!, groupId!);
 
             console.log("Form submitted successfully:", data);
             setErrors({});
@@ -221,6 +205,7 @@ export default function GuestRSVP() {
                             <FormInput
                                 name="name"
                                 register={register}
+                                watch={watch}
                                 error={errors.name}
                                 placeholder="Name"
                                 required
@@ -235,6 +220,7 @@ export default function GuestRSVP() {
                             <FormInput
                                 name="email"
                                 register={register}
+                                watch={watch}
                                 error={errors.email}
                                 placeholder="Email Id"
                                 type="email"
@@ -244,6 +230,7 @@ export default function GuestRSVP() {
                         <FormInput
                             name="personalNote"
                             register={register}
+                            watch={watch}
                             error={errors.personalNote}
                             placeholder="Personal Note"
                             rows={2}
@@ -257,8 +244,8 @@ export default function GuestRSVP() {
                                 name="rsvp"
                                 options={[
                                     { src: "tick.svg", label: "Attending" },
-                                    { src: "cross.svg", label: "Not Attending" },
                                     { src: "maybe.svg", label: "Maybe" },
+                                    { src: "cross.svg", label: "Not Attending" },
                                 ]}
                                 control={control}
                                 error={errors.rsvp}
@@ -267,7 +254,7 @@ export default function GuestRSVP() {
                         </div>
                     )}
 
-                    {isAttending && (
+                    {showRsvpOptions && (
                         <>
                             {formConfig?.collectGuestCount && (
                                 <div onClick={() => clearError("guest")}>
@@ -304,28 +291,29 @@ export default function GuestRSVP() {
                             )}
 
                             {formConfig?.collectAlcohol && (
-                                <Category
-                                    title="Alcohol Preference"
-                                    name="alcohol"
-                                    options={[
-                                        { src: "Wine.svg", label: "Wine" },
-                                        { src: "gin.svg", label: "Gin" },
-                                        { src: "vodka.svg", label: "Vodka" },
-                                        { src: "beer.svg", label: "Beer" },
-                                    ]}
-                                    control={control}
-                                    error={errors.alcohol}
-                                    gridCols="grid-cols-4"
-                                    isMulti={false}
-                                />
+                                <div onClick={() => clearError("alcohol")}>
+                                    <Category
+                                        title="Alcohol Preference"
+                                        name="alcohol"
+                                        options={[
+                                            { src: "tick.svg", label: "Yes" },
+                                            { src: "cross.svg", label: "No" },
+                                        ]}
+                                        control={control}
+                                        error={errors.alcohol}
+                                        gridCols="grid-cols-2"
+                                        isMulti={false}
+                                    />
+                                </div>
                             )}
 
                             {formConfig?.collectAccommodation && (
                                 <>
-                                    <AccommodationDates
-                                        control={control}
-                                        error={errors.accommodationDates}
-                                        availableDates={availableAccommodationDates}
+                                    <AccommodationDetails
+                                        register={register}
+                                        watch={watch}
+                                        errors={errors}
+                                        clearError={clearError}
                                     />
                                     {formConfig.accommodationDetails && (
                                         <p className="text-sm text-gray-600 -mt-4">
