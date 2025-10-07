@@ -49,7 +49,8 @@ export default function GuestRSVP() {
                 const eventDetails = data?.event;
                 if (eventDetails?.start_date_time && eventDetails?.end_date_time) {
                     const startDate = new Date(eventDetails.start_date_time);
-                    const endDate = new Date(eventDetails.end_date_time);
+                    const endDate = new Date(startDate);
+                    endDate.setDate(endDate.getDate() + 30);
                     startDate.setUTCHours(0, 0, 0, 0);
                     endDate.setUTCHours(0, 0, 0, 0);
 
