@@ -61,6 +61,7 @@ interface WeddingInvitationProps {
   invitationText?: string;
   additionalInfo?: string;
   contactInfo?: string;
+  inviteData?: any; // API response data
   onConfirmAttendance?: () => void;
   className?: string;
 }
@@ -94,9 +95,91 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
   invitationText = "We warmly invite you to honor us with your presence at our wedding ceremony.",
   additionalInfo = "We are thrilled to have you join us in celebrating the union of Aditya and Varun. Your presence will make our day even more special. Kindly let us know your needs for accommodation or transportation in the RSVP, as we would love to ensure your comfort and convenience.\n\nLooking forward to celebrating together!\n\nFor Enquires Contact\nMedhansh-12345678\nKrish-987654321",
   contactInfo = "Regards\nDear Close Relatives and Co-hosts",
+  inviteData,
   onConfirmAttendance,
   className = "",
 }) => {
+  // Helper function to capitalize first letter of each word
+  const capitalizeWords = (text: string): string => {
+    if (!text) return text;
+    return text
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+
+  // Helper function to capitalize only the first letter of the entire string
+  const capitalizeFirstLetter = (text: string): string => {
+    if (!text) return text;
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
+  // Extract data from API response if available
+  const eventDetails = inviteData?.event;
+  const weddingDetails = eventDetails?.weddingDetails;
+  const subEvents = inviteData?.subEvents || [];
+  const coHosts = inviteData?.coHosts || [];
+  const rsvpPreferences = inviteData?.rsvpPreferences;
+
+  // Check if RSVP is allowed
+  const isRsvpAllowed = rsvpPreferences?.formConfig?.isRsvpAllowed !== false;
+
+  // Get bride and groom names for use in additionalInfo
+  const brideNameForInfo =
+    capitalizeWords(weddingDetails?.bride_name) || brideName;
+  const groomNameForInfo =
+    capitalizeWords(weddingDetails?.groom_name) || groomName;
+
+  // Build additional info with co-hosts if they exist
+  const buildAdditionalInfo = () => {
+    if (eventDetails?.additional_info) {
+      return capitalizeFirstLetter(eventDetails.additional_info);
+    }
+
+    let info = `We are thrilled to have you join us in celebrating the union of ${brideNameForInfo} and ${groomNameForInfo}. Your presence will make our day even more special. Kindly let us know your needs for accommodation or transportation in the RSVP, as we would love to ensure your comfort and convenience.\n\nLooking forward to celebrating together!`;
+
+    if (coHosts.length > 0) {
+      info += "\n\nFor Enquires Contact";
+      coHosts.forEach((host: any) => {
+        info += `\n${capitalizeWords(host.name)}-${host.mobileNumber}`;
+      });
+    }
+
+    return info;
+  };
+
+  // Use API data if available, otherwise fall back to defaults
+  const displayData = {
+    brideName: brideNameForInfo,
+    groomName: groomNameForInfo,
+    brideParents:
+      capitalizeFirstLetter(weddingDetails?.bride_details) || brideParents,
+    groomParents:
+      capitalizeFirstLetter(weddingDetails?.groom_details) || groomParents,
+    hashtag: weddingDetails?.hashtag ? `#${weddingDetails.hashtag}` : hashtag,
+    invitationText:
+      capitalizeFirstLetter(eventDetails?.invite_message) || invitationText,
+    additionalInfo: buildAdditionalInfo(),
+    contactInfo:
+      capitalizeFirstLetter(eventDetails?.contact_info) || contactInfo,
+    events:
+      subEvents.length > 0
+        ? subEvents.map((event: any) => ({
+            title: capitalizeWords(event.title),
+            date: `${new Date(event.startDateTime).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+            })} - ${new Date(event.startDateTime).toLocaleTimeString("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}`,
+            venue: `${capitalizeWords(event.location)}${
+              event.address ? `, ${capitalizeWords(event.address)}` : ""
+            }`,
+            color: "#4B0082",
+          }))
+        : events,
+  };
   // Function to format phone numbers on separate lines
   const formatPhoneNumbers = (text: string) => {
     // Replace "or" between phone numbers with newlines
@@ -105,7 +188,9 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
       .replace(/(\w+-\d{10,})\s+or\s+(\w+-\d{10,})/g, "$1\n$2");
   };
 
-  const formattedAdditionalInfo = formatPhoneNumbers(additionalInfo);
+  const formattedAdditionalInfo = formatPhoneNumbers(
+    displayData.additionalInfo
+  );
 
   return (
     <div className={`w-full flex justify-center p-4 ${className}`}>
@@ -120,16 +205,18 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
             <BottomRightCornerBorder className="absolute bottom-2 right-4 md:bottom-5 md:right-5 w-[40%] h-auto z-10 text-black" />
             {/* Main Invitation Text */}
             <div className="md:w-[65%] text-center mb-[8%] px-[2%] relative">
-              <p className="text-[32px] leading-relaxed">{invitationText}</p>
+              <p className="text-[32px] leading-relaxed">
+                {displayData.invitationText}
+              </p>
             </div>
 
             {/* Bride Name Section */}
             <div className="text-center w-full mb-[3%]">
               <h1 className="text-[40px] leading-tight montaga-regular">
-                {brideName}
+                {displayData.brideName}
               </h1>
               <p className="text-[17px] mt-[2%] montaga-regular">
-                {brideParents}
+                {displayData.brideParents}
               </p>
             </div>
 
@@ -141,54 +228,62 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
             {/* Groom Name Section */}
             <div className="text-center w-full mb-[8%] relative">
               <h1 className="text-[40px] leading-tight montaga-regular">
-                {groomName}
+                {displayData.groomName}
               </h1>
               <p className="text-[17px] mt-[2%] montaga-regular">
-                {groomParents}
+                {displayData.groomParents}
               </p>
 
               {/* Side Branch positioned relative to groom section */}
-              <FigmaFloralBranchRight className="absolute right-[-10%] top-[-20%] w-[25%] h-auto " />
+              <FigmaFloralBranchRight className="absolute right-[-10%] top-[-120%] w-[25%] h-auto " />
             </div>
 
             {/* Hashtag */}
             <div className="mb-[8%]">
-              <p className="text-[24px] laila-light">{hashtag}</p>
+              <p className="text-[24px] laila-light">{displayData.hashtag}</p>
             </div>
 
-            {/* Events Section */}
-            <div className="w-full space-y-[8%] mb-[10%]">
-              {events.map((event, index) => {
-                // Map event types to specific Figma floral components
-                const EventFloral =
-                  event.title.toLowerCase() === "haldi"
-                    ? FigmaFloralHaldi
-                    : event.title.toLowerCase() === "wedding"
-                    ? FigmaFloralWedding
-                    : FigmaFloralSangeet;
+            {/* Events Section - Only show if events exist */}
+            {displayData.events && displayData.events.length > 0 && (
+              <div className="w-full space-y-[8%] mb-[10%]">
+                {displayData.events.map(
+                  (event: EventDetails, index: number) => {
+                    // Map event types to specific Figma floral components
+                    const EventFloral =
+                      event.title.toLowerCase() === "haldi"
+                        ? FigmaFloralHaldi
+                        : event.title.toLowerCase() === "wedding"
+                        ? FigmaFloralWedding
+                        : FigmaFloralSangeet;
 
-                return (
-                  <div key={index} className="relative text-center py-[3%]">
-                    {/* Event-specific Floral Accent */}
-                    <EventFloral
-                      className={`absolute  top-[10%] w-[20%] h-auto  ${
-                        index % 2 == 0 ? "left-[5%]" : "right-[5%]"
-                      }`}
-                    />
+                    return (
+                      <div key={index} className="relative text-center py-[3%]">
+                        {/* Event-specific Floral Accent */}
+                        <EventFloral
+                          className={`absolute  top-[10%] w-[20%] h-auto  ${
+                            index % 2 == 0 ? "left-[5%]" : "right-[5%]"
+                          }`}
+                        />
 
-                    <div className="space-y-[2%] relative z-10">
-                      <p className="text-[24px] laila-semibold">{event.date}</p>
+                        <div className="space-y-[2%] relative z-10">
+                          <p className="text-[24px] laila-semibold">
+                            {event.date}
+                          </p>
 
-                      <h2 className="text-[38px] montaga-regular">
-                        {event.title}
-                      </h2>
+                          <h2 className="text-[38px] montaga-regular">
+                            {event.title}
+                          </h2>
 
-                      <p className="text-[24px] laila-regular">{event.venue}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                          <p className="text-[24px] laila-regular">
+                            {event.venue}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            )}
 
             {/* Additional Information */}
             <div className="w-full text-center mb-[8%] px-[2%]">
@@ -198,10 +293,11 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
               <FigmaFloralBranchBottom className="absolute left-[-10%] bottom-[10%] w-[25%] h-auto " />
             </div>
             {/* <FigmaFloralBranchRight className="absolute left-[-10%] bottom-[ 20%] w-[25%] h-auto " /> */}
+
             {/* Contact Info */}
             <div className="w-full text-center mb-[8%] relative">
               <p className="text-[32px] leading-relaxed whitespace-pre-line">
-                {contactInfo}
+                {displayData.contactInfo}
               </p>
 
               {/* Bottom Right Floral */}
@@ -209,8 +305,12 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
             </div>
           </div>
           <div className="w-[80%] mx-auto py-4">
-            <button className="w-full bg-[#ef4444] hover:bg-[#dc2626] disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-xl font-bold text-lg md:text-xl transition-colors">
-              {"CONFIRM ATTENDANCE"}
+            <button
+              onClick={onConfirmAttendance}
+              disabled={!isRsvpAllowed}
+              className="w-full bg-[#ef4444] hover:bg-[#dc2626] disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-xl font-bold text-lg md:text-xl transition-colors"
+            >
+              {isRsvpAllowed ? "CONFIRM ATTENDANCE" : "RSVP LOCKED"}
             </button>
           </div>
         </div>

@@ -21,6 +21,10 @@ const App: React.FC = () => {
       <Routes>
         <Route path={ROUTES.HOME} element={<EventInvitation />} />
         <Route path={ROUTES.EVENT_INVITATION} element={<EventInvitation />} />
+        <Route
+          path="/invitation/:eventId/:groupId"
+          element={<EventInvitation />}
+        />
         <Route path={ROUTES.GUEST_RSVP} element={<GuestRSVP />} />
 
         <Route
