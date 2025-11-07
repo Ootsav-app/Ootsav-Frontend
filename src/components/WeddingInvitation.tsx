@@ -1,12 +1,10 @@
 // Wedding Invitation Card - Responsive Component
 import React from "react";
 import {
-  FigmaFloralTopLeft,
   FigmaFloralBranchRight,
   FigmaFloralHaldi,
   FigmaFloralWedding,
   FigmaFloralSangeet,
-  FigmaFloralBottomLeft,
   FigmaFloralBottomRight,
   FigmaFloralBranchBottom,
 } from "./FigmaFloralComponents";
@@ -93,7 +91,6 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
     },
   ],
   invitationText = "We warmly invite you to honor us with your presence at our wedding ceremony.",
-  additionalInfo = "We are thrilled to have you join us in celebrating the union of Aditya and Varun. Your presence will make our day even more special. Kindly let us know your needs for accommodation or transportation in the RSVP, as we would love to ensure your comfort and convenience.\n\nLooking forward to celebrating together!\n\nFor Enquires Contact\nMedhansh-12345678\nKrish-987654321",
   contactInfo = "Regards\nDear Close Relatives and Co-hosts",
   inviteData,
   onConfirmAttendance,
