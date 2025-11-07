@@ -38,6 +38,16 @@ async function submitRSVP(
     rsvp: rsvpMapping[data.rsvp as keyof typeof rsvpMapping],
   };
 
+  // Include email if provided
+  if (data.email) {
+    apiData.email = data.email;
+  }
+
+  // Include personal note if provided
+  if (data.personalNote) {
+    apiData.personal_note = data.personalNote;
+  }
+
   if (data.food) {
     apiData.food = data.food.toLowerCase();
   }
