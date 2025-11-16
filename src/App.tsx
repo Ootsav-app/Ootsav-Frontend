@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 import GuestRSVP from "./pages/GuestRSVP";
 import GuestRSVP_Attending from "./pages/GuestRSVP_Attending";
 import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
@@ -19,7 +20,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 darker-grotesque">
       <Routes>
-        <Route path={ROUTES.HOME} element={<EventInvitation />} />
+        <Route path={ROUTES.HOME} element={<LandingPage />} />
         <Route path={ROUTES.EVENT_INVITATION} element={<EventInvitation />} />
         <Route
           path="/invitation/:eventId/:groupId"
