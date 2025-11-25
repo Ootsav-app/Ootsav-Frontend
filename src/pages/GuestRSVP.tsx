@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 
 import FormInput from "../components/FormInput.tsx";
@@ -23,12 +23,44 @@ export default function GuestRSVP() {
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const eventId = searchParams.get("eventId");
-  const groupId = searchParams.get("groupId");
+  // Safari-compatible parameter extraction
+  const getParams = () => {
+    // Safari bug fix: Parse URL manually from window.location.href
+    const url = new URL(window.location.href);
+    let eventId = url.searchParams.get("eventId");
+    let groupId = url.searchParams.get("groupId");
+    
+    // Validate extracted params
+    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+      return { eventId, groupId };
+    }
+    
+    // Fallback to React Router searchParams
+    eventId = searchParams.get("eventId");
+    groupId = searchParams.get("groupId");
+    
+    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+      return { eventId, groupId };
+    }
+    
+    return { eventId: null, groupId: null };
+  };
+
+  const { eventId, groupId } = getParams();
 
   useEffect(() => {
-    if (!eventId || !groupId) {
+    // Re-extract parameters using Safari-compatible method
+    const { eventId: currentEventId, groupId: currentGroupId } = getParams();
+    
+    if (!currentEventId || !currentGroupId) {
+      console.error("Invalid RSVP parameters:", { 
+        eventId: currentEventId, 
+        groupId: currentGroupId,
+        windowHref: window.location.href,
+        userAgent: navigator.userAgent
+      });
       setParamError(
         "Missing required parameters. Please use a valid invite link."
       );
@@ -39,7 +71,7 @@ export default function GuestRSVP() {
     setIsLoading(true);
     setParamError("");
 
-    getInviteDetails(eventId, groupId)
+    getInviteDetails(currentEventId, currentGroupId)
       .then((res) => {
         const data: any = res.data;
         setInviteData(data);
@@ -53,7 +85,7 @@ export default function GuestRSVP() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [eventId, groupId]);
+  }, [location.search]);
 
   const { register, control, handleSubmit, watch, getValues } =
     useForm<GuestRSVPFormData>({

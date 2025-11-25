@@ -13,20 +13,34 @@ const EventInvitation: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>("");
 
-  // Get eventId and groupId from search params or URL path
+  // Safari-compatible URL parameter extraction
   const getEventAndGroupId = () => {
-    // First check search params
-    const eventIdParam = searchParams.get("eventId");
-    const groupIdParam = searchParams.get("groupId");
+    // Safari bug fix: Parse URL manually from window.location.href
+    const url = new URL(window.location.href);
+    let eventId = url.searchParams.get("eventId");
+    let groupId = url.searchParams.get("groupId");
 
-    if (eventIdParam && groupIdParam) {
-      return { eventId: eventIdParam, groupId: groupIdParam };
+    // Validate extracted params
+    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+      return { eventId, groupId };
     }
 
-    // If not in search params, try to extract from path like /invite/eventId/groupId
+    // Fallback: React Router searchParams
+    eventId = searchParams.get("eventId");
+    groupId = searchParams.get("groupId");
+
+    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+      return { eventId, groupId };
+    }
+
+    // Fallback: Extract from path like /invite/eventId/groupId
     const pathParts = location.pathname.split("/").filter(Boolean);
     if (pathParts.length >= 3 && pathParts[0] === "invite") {
-      return { eventId: pathParts[1], groupId: pathParts[2] };
+      const pathEventId = pathParts[1];
+      const pathGroupId = pathParts[2];
+      if (pathEventId !== "undefined" && pathGroupId !== "undefined" && pathEventId !== "null" && pathGroupId !== "null") {
+        return { eventId: pathEventId, groupId: pathGroupId };
+      }
     }
 
     return { eventId: null, groupId: null };
@@ -35,14 +49,25 @@ const EventInvitation: React.FC = () => {
   const { eventId, groupId } = getEventAndGroupId();
 
   useEffect(() => {
-    if (!eventId || !groupId) {
+    // Re-extract parameters using Safari-compatible method
+    const { eventId: currentEventId, groupId: currentGroupId } = getEventAndGroupId();
+    
+    if (!currentEventId || !currentGroupId) {
+      console.error("Invalid parameters:", { 
+        eventId: currentEventId, 
+        groupId: currentGroupId, 
+        pathname: location.pathname, 
+        search: location.search,
+        windowHref: window.location.href,
+        userAgent: navigator.userAgent
+      });
       setError("Missing required parameters. Please use a valid invite link.");
       setIsLoading(false);
       return;
     }
 
     // Create a unique key for this event-group combination
-    const cacheKey = `invite_${eventId}_${groupId}`;
+    const cacheKey = `invite_${currentEventId}_${currentGroupId}`;
 
     // Check if data exists in localStorage
     const cachedData = localStorage.getItem(cacheKey);
@@ -62,7 +87,7 @@ const EventInvitation: React.FC = () => {
     setIsLoading(true);
     setError("");
 
-    getInviteDetails(eventId, groupId)
+    getInviteDetails(currentEventId, currentGroupId)
       .then((res) => {
         const data: any = res.data;
         setInviteData(data);
@@ -82,7 +107,7 @@ const EventInvitation: React.FC = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [eventId, groupId]);
+  }, [location.pathname, location.search]);
 
   // Function to clean up old event data from localStorage
   const cleanupOldEventData = (currentKey: string) => {
