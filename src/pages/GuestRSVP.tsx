@@ -77,8 +77,6 @@ export default function GuestRSVP() {
   const showRsvpOptions = rsvpStatus === "Attending" || rsvpStatus === "Maybe";
 
   const formConfig = inviteData?.rsvpPreferences?.formConfig;
-  const eventDetails = inviteData?.event;
-  //   const groupName = inviteData?.group?.name;
 
   const onSubmit = async () => {
     setIsSubmitting(true);
