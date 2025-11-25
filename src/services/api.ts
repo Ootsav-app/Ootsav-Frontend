@@ -18,19 +18,25 @@ async function getInviteDetails(
   }
 }
 
+interface FormConfig {
+  collectFood?: boolean;
+  collectAlcohol?: boolean;
+  collectGuestCount?: boolean;
+  collectAccommodation?: boolean;
+  collectTransport?: boolean;
+}
+
 async function submitRSVP(
   data: GuestRSVPFormData,
   eventId: string,
-  groupId: string
+  groupId: string,
+  formConfig?: FormConfig
 ) {
   const rsvpMapping = {
     Attending: "accepted",
     "Not Attending": "declined",
     Maybe: "maybe",
   };
-
-  // Determine alcohol as boolean
-  const alcoholValue = data.alcohol && data.alcohol.toLowerCase() === "yes";
 
   const apiData: any = {
     name: data.name,
@@ -48,22 +54,37 @@ async function submitRSVP(
     apiData.personal_note = data.personalNote;
   }
 
-  if (data.food) {
+  // Only include food preference if it's being collected and has a value
+  if (formConfig?.collectFood && data.food) {
     apiData.food = data.food.toLowerCase();
   }
 
-  apiData.alcohol = alcoholValue;
+  // Only include alcohol preference if it's being collected and has a value
+  if (formConfig?.collectAlcohol && data.alcohol) {
+    apiData.alcohol = data.alcohol.toLowerCase() === "yes";
+  }
 
-  // Add pickup details if provided
-  if (data.pickupLocation && data.pickupDateTime) {
-    // Convert datetime-local format (YYYY-MM-DDTHH:mm) to date only (YYYY-MM-DD)
+  // Only include guest count if it's being collected and has a value
+  if (formConfig?.collectGuestCount && data.guest) {
+    apiData.guest_count = data.guest;
+  }
+
+  // Add pickup details if transport is being collected and values are provided
+  if (
+    formConfig?.collectTransport &&
+    data.pickupLocation &&
+    data.pickupDateTime
+  ) {
     apiData.pickup_date_time = data.pickupDateTime.split("T")[0];
     apiData.pickup_location = data.pickupLocation;
   }
 
-  // Add dropoff details if provided
-  if (data.dropoffLocation && data.dropoffDateTime) {
-    // Convert datetime-local format (YYYY-MM-DDTHH:mm) to date only (YYYY-MM-DD)
+  // Add dropoff details if transport is being collected and values are provided
+  if (
+    formConfig?.collectTransport &&
+    data.dropoffLocation &&
+    data.dropoffDateTime
+  ) {
     apiData.dropoff_date_time = data.dropoffDateTime.split("T")[0];
     apiData.dropoff_location = data.dropoffLocation;
   }

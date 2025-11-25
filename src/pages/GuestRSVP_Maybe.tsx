@@ -11,7 +11,7 @@ export default function GuestRSVP_Maybe() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-10 pb-35 sm:py-14 h-[55vh] flex flex-col justify-center items-center">
+        <div className="w-full py-10 pb-35 sm:py-14 h-[55vh] flex flex-col justify-center items-center mt-3">
           {/* Icon */}
           <img
             src="/confused.svg"
@@ -20,15 +20,15 @@ export default function GuestRSVP_Maybe() {
           />
 
           {/* Headings */}
-          <h1 className="mb-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mb-2 text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
             Keeping Things Open?
           </h1>
-          <h1 className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mb-6 text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
             We Get It!
           </h1>
 
           {/* Paragraph */}
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-md leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-xl leading-relaxed">
             No pressure! You can update your RSVP response on the app anytime.
             In the meantime, download the app to stay updated on all the event
             buzz.

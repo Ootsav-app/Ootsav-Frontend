@@ -1,6 +1,6 @@
 // Event Invitation Page - Showcasing the Wedding Invitation Component
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import WeddingInvitation from "../components/WeddingInvitation";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { getInviteDetails } from "../services/api";
@@ -8,14 +8,31 @@ import { getInviteDetails } from "../services/api";
 const EventInvitation: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const params = useParams();
+  const location = useLocation();
   const [inviteData, setInviteData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>("");
 
-  // Get eventId and groupId from either URL params or search params
-  const eventId = params.eventId || searchParams.get("eventId");
-  const groupId = params.groupId || searchParams.get("groupId");
+  // Get eventId and groupId from search params or URL path
+  const getEventAndGroupId = () => {
+    // First check search params
+    const eventIdParam = searchParams.get("eventId");
+    const groupIdParam = searchParams.get("groupId");
+
+    if (eventIdParam && groupIdParam) {
+      return { eventId: eventIdParam, groupId: groupIdParam };
+    }
+
+    // If not in search params, try to extract from path like /invite/eventId/groupId
+    const pathParts = location.pathname.split("/").filter(Boolean);
+    if (pathParts.length >= 3 && pathParts[0] === "invite") {
+      return { eventId: pathParts[1], groupId: pathParts[2] };
+    }
+
+    return { eventId: null, groupId: null };
+  };
+
+  const { eventId, groupId } = getEventAndGroupId();
 
   useEffect(() => {
     if (!eventId || !groupId) {
@@ -91,15 +108,51 @@ const EventInvitation: React.FC = () => {
   // Show error if parameters are missing or loading failed
   if (error) {
     return (
-      <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
-        <div className="px-4 text-center">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            Invalid Invite Link
-          </h2>
-          <p className="mb-4 text-gray-600">{error}</p>
-          <p className="text-sm text-gray-500">
-            Please contact the event organizer for a valid invite link.
-          </p>
+      <div className="flex flex-col min-h-screen bg-white">
+        <div
+          className="text-white flex flex-col items-center text-center px-4 sm:px-6 relative bg-[#272938]"
+          style={{
+            backgroundImage: "url('/back1.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div className="w-full py-10 pb-30 sm:py-14 h-[55vh] flex flex-col justify-center items-center">
+            <img
+              src="/heartbreak.svg"
+              alt="Broken Link Icon"
+              className="w-16 h-auto mb-6 sm:w-24 md:w-28 lg:w-32"
+            />
+
+            <h1 className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+              Invite Link is Broken!
+            </h1>
+
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-md leading-relaxed">
+              We couldn't load your invitation. Please{" "}
+              <strong>contact the host</strong> for a valid invite link, or
+              download the app to access your invitation.
+            </p>
+          </div>
+        </div>
+
+        {/* Download Buttons */}
+        <div className="flex flex-col items-center justify-center w-full px-4 py-10 space-y-6 text-black bg-white">
+          <img
+            src="/play.svg"
+            alt="Google Play Store"
+            className="w-[90%] max-w-xs sm:max-w-sm md:max-w-md rounded-xl cursor-pointer"
+            onClick={() =>
+              window.open("https://play.google.com/store/apps", "_blank")
+            }
+          />
+          <img
+            src="/app.svg"
+            alt="Apple App Store"
+            className="w-[90%] max-w-xs sm:max-w-sm md:max-w-md rounded-xl cursor-pointer"
+            onClick={() => window.open("https://apps.apple.com", "_blank")}
+          />
         </div>
       </div>
     );
