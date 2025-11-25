@@ -21,7 +21,14 @@ const EventInvitation: React.FC = () => {
     let groupId = url.searchParams.get("groupId");
 
     // Validate extracted params
-    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+    if (
+      eventId &&
+      groupId &&
+      eventId !== "undefined" &&
+      groupId !== "undefined" &&
+      eventId !== "null" &&
+      groupId !== "null"
+    ) {
       return { eventId, groupId };
     }
 
@@ -29,7 +36,14 @@ const EventInvitation: React.FC = () => {
     eventId = searchParams.get("eventId");
     groupId = searchParams.get("groupId");
 
-    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+    if (
+      eventId &&
+      groupId &&
+      eventId !== "undefined" &&
+      groupId !== "undefined" &&
+      eventId !== "null" &&
+      groupId !== "null"
+    ) {
       return { eventId, groupId };
     }
 
@@ -38,7 +52,12 @@ const EventInvitation: React.FC = () => {
     if (pathParts.length >= 3 && pathParts[0] === "invite") {
       const pathEventId = pathParts[1];
       const pathGroupId = pathParts[2];
-      if (pathEventId !== "undefined" && pathGroupId !== "undefined" && pathEventId !== "null" && pathGroupId !== "null") {
+      if (
+        pathEventId !== "undefined" &&
+        pathGroupId !== "undefined" &&
+        pathEventId !== "null" &&
+        pathGroupId !== "null"
+      ) {
         return { eventId: pathEventId, groupId: pathGroupId };
       }
     }
@@ -50,16 +69,17 @@ const EventInvitation: React.FC = () => {
 
   useEffect(() => {
     // Re-extract parameters using Safari-compatible method
-    const { eventId: currentEventId, groupId: currentGroupId } = getEventAndGroupId();
-    
+    const { eventId: currentEventId, groupId: currentGroupId } =
+      getEventAndGroupId();
+
     if (!currentEventId || !currentGroupId) {
-      console.error("Invalid parameters:", { 
-        eventId: currentEventId, 
-        groupId: currentGroupId, 
-        pathname: location.pathname, 
+      console.error("Invalid parameters:", {
+        eventId: currentEventId,
+        groupId: currentGroupId,
+        pathname: location.pathname,
         search: location.search,
         windowHref: window.location.href,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
       });
       setError("Missing required parameters. Please use a valid invite link.");
       setIsLoading(false);

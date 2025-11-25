@@ -31,20 +31,34 @@ export default function GuestRSVP() {
     const url = new URL(window.location.href);
     let eventId = url.searchParams.get("eventId");
     let groupId = url.searchParams.get("groupId");
-    
+
     // Validate extracted params
-    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+    if (
+      eventId &&
+      groupId &&
+      eventId !== "undefined" &&
+      groupId !== "undefined" &&
+      eventId !== "null" &&
+      groupId !== "null"
+    ) {
       return { eventId, groupId };
     }
-    
+
     // Fallback to React Router searchParams
     eventId = searchParams.get("eventId");
     groupId = searchParams.get("groupId");
-    
-    if (eventId && groupId && eventId !== "undefined" && groupId !== "undefined" && eventId !== "null" && groupId !== "null") {
+
+    if (
+      eventId &&
+      groupId &&
+      eventId !== "undefined" &&
+      groupId !== "undefined" &&
+      eventId !== "null" &&
+      groupId !== "null"
+    ) {
       return { eventId, groupId };
     }
-    
+
     return { eventId: null, groupId: null };
   };
 
@@ -53,13 +67,13 @@ export default function GuestRSVP() {
   useEffect(() => {
     // Re-extract parameters using Safari-compatible method
     const { eventId: currentEventId, groupId: currentGroupId } = getParams();
-    
+
     if (!currentEventId || !currentGroupId) {
-      console.error("Invalid RSVP parameters:", { 
-        eventId: currentEventId, 
+      console.error("Invalid RSVP parameters:", {
+        eventId: currentEventId,
         groupId: currentGroupId,
         windowHref: window.location.href,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
       });
       setParamError(
         "Missing required parameters. Please use a valid invite link."
