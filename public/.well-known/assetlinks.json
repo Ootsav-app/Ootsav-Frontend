@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.ootsav",
       "sha256_cert_fingerprints": [
-        "1D:D5:D1:BF:3F:78:D2:31:65:90:6D:3A:C5:2A:D4:B6:29:1A:96:FA:04:D0:A8:2B:F0:B5:DB:1A:7D:B5:6C:3B"
+        "1D:D5:D1:BF:3F:78:D2:31:65:90:6D:3A:C5:2A:D4:B6:29:1A:96:FA:04:D0:A8:2B:F0:B5:DB:1A:7D:B5:6C:3B",
+        "EF:C7:16:01:87:2B:1A:14:CC:CB:96:5E:79:DC:35:E0:EF:49:32:E7:0E:54:26:0E:A5:3A:31:CE:94:59:B6:C8"
       ]
     }
   }
