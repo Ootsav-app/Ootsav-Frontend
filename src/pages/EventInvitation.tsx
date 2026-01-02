@@ -100,6 +100,7 @@ const EventInvitation: React.FC = () => {
         return;
       } catch (error) {
         // If parsing fails, clear the corrupted data and fetch fresh
+        console.error("Error parsing cached invite data:", error);
         localStorage.removeItem(cacheKey);
       }
     }
@@ -189,7 +190,10 @@ const EventInvitation: React.FC = () => {
             alt="Google Play Store"
             className="w-[90%] max-w-xs sm:max-w-sm md:max-w-md rounded-xl cursor-pointer"
             onClick={() =>
-              window.open("https://play.google.com/store/apps", "_blank")
+              window.open(
+                "https://play.google.com/store/apps/details?id=com.ootsav",
+                "_blank"
+              )
             }
           />
           <img

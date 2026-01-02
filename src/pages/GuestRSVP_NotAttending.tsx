@@ -34,6 +34,12 @@ export default function GuestRSVP_NotAttending() {
           src="/play.svg"
           alt="Google Play Store"
           className="w-[90%] max-w-xs sm:max-w-sm md:max-w-md rounded-xl"
+          onClick={() =>
+            window.open(
+              "https://play.google.com/store/apps/details?id=com.ootsav",
+              "_blank"
+            )
+          }
         />
         <img
           src="/app.svg"
