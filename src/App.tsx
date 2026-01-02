@@ -6,9 +6,11 @@ import GuestRSVP_Attending from "./pages/GuestRSVP_Attending";
 import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
 import GuestRSVP_Maybe from "./pages/GuestRSVP_Maybe";
 import EventInvitation from "./pages/EventInvitation";
+import EventDetailsPage from "./pages/EventDetailsPage";
 
 const ROUTES = {
   HOME: "/",
+  EVENT_DETAILS: "/event-details", // 2. Add a new route key
   EVENT_INVITATION: "/invitation",
   INVITE: "/invite",
   GUEST_RSVP: "/guest-rsvp-selected",
@@ -22,6 +24,10 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-50 darker-grotesque">
       <Routes>
         <Route path={ROUTES.HOME} element={<LandingPage />} />
+        
+        {/* 3. Add the Route component */}
+        <Route path={ROUTES.EVENT_DETAILS} element={<EventDetailsPage />} />
+
         <Route path={ROUTES.EVENT_INVITATION} element={<EventInvitation />} />
         <Route path={`${ROUTES.INVITE}/*`} element={<EventInvitation />} />
         <Route path={ROUTES.GUEST_RSVP} element={<GuestRSVP />} />

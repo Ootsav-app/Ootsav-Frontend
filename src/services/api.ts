@@ -1,7 +1,17 @@
 import axios from "axios";
 import type { GuestRSVPFormData } from "../types/validation";
 
+// FIX 3: Update path to 'types/events' (plural)
+import type { EventData, SubEvent, CoHost } from "../types/events"; 
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+// --- Debugging Block (Optional: Remove after verifying) ---
+if (!BACKEND_URL) {
+  console.error("CRITICAL ERROR: VITE_BACKEND_URL is undefined. Check .env file location and restart server.");
+} else {
+  console.log("CONNECTED TO BACKEND:", BACKEND_URL);
+}
 
 async function getInviteDetails(
   eventId: string,
@@ -102,4 +112,66 @@ async function submitRSVP(
   return response.data;
 }
 
-export { getInviteDetails, submitRSVP };
+// --- New Functions ---
+
+async function getEventById(eventId: string): Promise<EventData> {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/events/${eventId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching event details:", error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches the sub-events (timeline) for a specific event
+ */
+async function getEventSubEvents(eventId: string): Promise<SubEvent[]> {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/events/${eventId}/subevents`);
+    return response.data; // Assuming it returns an array
+  } catch (error) {
+    console.error("Error fetching sub-events:", error);
+    return []; // Return empty array on error to prevent page crash
+  }
+}
+
+/**
+ * Fetches the co-hosts for a specific event
+ */
+async function getEventCoHosts(eventId: string): Promise<CoHost[]> {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/events/${eventId}/cohosts`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching co-hosts:", error);
+    return [];
+  }
+}
+
+/**
+ * Composite function to fetch all page data in parallel
+ */
+async function getFullEventPageData(eventId: string) {
+  try {
+    const [event, subEvents, coHosts] = await Promise.all([
+      getEventById(eventId),
+      getEventSubEvents(eventId),
+      getEventCoHosts(eventId),
+    ]);
+
+    return { event, subEvents, coHosts };
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { 
+  getInviteDetails, 
+  submitRSVP, 
+  getEventById, 
+  getEventSubEvents, 
+  getEventCoHosts, 
+  getFullEventPageData 
+};
