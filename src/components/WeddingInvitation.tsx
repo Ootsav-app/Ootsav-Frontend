@@ -118,8 +118,14 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
   const coHosts = inviteData?.coHosts || [];
   const rsvpPreferences = inviteData?.rsvpPreferences;
 
-  // Check if RSVP is allowed
-  const isRsvpAllowed = rsvpPreferences?.formConfig?.isRsvpAllowed !== false;
+  // Check if event has started
+  const hasEventStarted = eventDetails?.start_time
+    ? new Date(eventDetails.start_time).getTime() < Date.now()
+    : false;
+
+  // Check if RSVP is allowed (both by preferences and if event hasn't started)
+  const isRsvpAllowed =
+    rsvpPreferences?.formConfig?.isRsvpAllowed !== false && !hasEventStarted;
 
   // Get bride and groom names for use in additionalInfo
   const brideNameForInfo =

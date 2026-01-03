@@ -20,6 +20,7 @@ export default function GuestRSVP() {
   const [inviteData, setInviteData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [paramError, setParamError] = useState<string>("");
+  const [familyCount, setFamilyCount] = useState<string>("");
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -122,7 +123,10 @@ export default function GuestRSVP() {
   const rsvpStatus = watch("rsvp");
   const showRsvpOptions = rsvpStatus === "Attending" || rsvpStatus === "Maybe";
   const guestCount = watch("guest");
-  const showFamilyInput = guestCount === "Family";
+  // Show family input if "Family" is selected OR if a numeric family count was entered (starts with + and is not +1 or +2)
+  const showFamilyInput =
+    guestCount === "Family" ||
+    (guestCount?.startsWith("+") && guestCount !== "+1" && guestCount !== "+2");
 
   const formConfig = inviteData?.rsvpPreferences?.formConfig;
 
@@ -357,10 +361,12 @@ export default function GuestRSVP() {
                           type="number"
                           min="1"
                           max="20"
+                          value={familyCount}
                           placeholder="Enter number of family members"
-                          className="peer w-full px-4 py-3 border rounded-xl text-sm md:text-base bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent border-gray-300"
+                          className="peer w-full px-4 py-3.5 border-2 rounded-xl text-base bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 border-gray-300 transition-all"
                           onChange={(e) => {
                             const value = e.target.value;
+                            setFamilyCount(value);
                             if (value && parseInt(value) > 0) {
                               setValue("guest", `+${value}`);
                             } else {
@@ -368,7 +374,7 @@ export default function GuestRSVP() {
                             }
                           }}
                         />
-                        <label className="absolute left-4 -top-2.5 bg-white px-2 text-xs font-medium text-gray-600 pointer-events-none">
+                        <label className="absolute left-4 -top-2.5 bg-white px-2 text-xs font-semibold text-gray-700 pointer-events-none">
                           Number of Family Members
                         </label>
                       </div>

@@ -76,6 +76,7 @@ module.exports = {
         laila: ["Laila", "serif"],
         poly: ["Poly", "serif"],
         "darker-grotesque": ['"Darker Grotesque"', "sans-serif"],
+        'dark-grot': ['DarkGrot', 'sans-serif'],
       },
       fontSize: {
         // Wedding Invitation Typography Scale

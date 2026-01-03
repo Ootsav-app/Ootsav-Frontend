@@ -1,4 +1,3 @@
-// types/validation.ts
 export interface GuestRSVPFormData {
   name: string;
   phone: string;
