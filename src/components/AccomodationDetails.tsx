@@ -42,8 +42,8 @@ export default function AccommodationDetails({
 
     const startDate = dayjs(eventStartDate);
     const endDate = dayjs(eventEndDate);
-    const minDate = startDate.subtract(1, "day").format("YYYY-MM-DD");
-    const maxDate = endDate.add(1, "day").format("YYYY-MM-DD");
+    const minDate = startDate.subtract(2, "day").format("YYYY-MM-DD");
+    const maxDate = endDate.add(2, "day").format("YYYY-MM-DD");
 
     return { minDate, maxDate };
   };

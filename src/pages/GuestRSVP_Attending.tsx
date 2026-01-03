@@ -11,25 +11,25 @@ export default function GuestRSVP_Attending() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="w-full py-1 pb-30 sm:py-14 h-[55vh] flex flex-col justify-center items-center">
+        <div className="w-full py-8 sm:py-12 min-h-[60vh] flex flex-col justify-center items-center px-4">
           <img
             src="/Confetti.svg"
             alt="Confetti"
-            className="w-16 h-auto mb-6 sm:w-24 md:w-28 lg:w-32"
+            className="w-16 h-auto mb-6 sm:w-20 md:w-24"
           />
 
-          <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl">
             You’re In!
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 max-w-[90%] sm:max-w-md leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-4 max-w-[95%] sm:max-w-xl md:max-w-2xl leading-relaxed">
             Thanks for RSVPing—we can’t wait to see you there!
           </p>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 max-w-[90%] sm:max-w-md leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-4 max-w-[95%] sm:max-w-xl md:max-w-2xl leading-relaxed">
             Want to stay in the loop for all the fun updates, photos, and
             surprises?
           </p>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-md leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[95%] sm:max-w-xl md:max-w-2xl leading-relaxed">
             Download the app and don’t miss a thing.
           </p>
         </div>
