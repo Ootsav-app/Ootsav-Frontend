@@ -101,7 +101,7 @@ export default function GuestRSVP() {
       });
   }, [location.search]);
 
-  const { register, control, handleSubmit, watch, getValues } =
+  const { register, control, handleSubmit, watch, getValues, setValue } =
     useForm<GuestRSVPFormData>({
       defaultValues: {
         name: "",
@@ -121,8 +121,38 @@ export default function GuestRSVP() {
 
   const rsvpStatus = watch("rsvp");
   const showRsvpOptions = rsvpStatus === "Attending" || rsvpStatus === "Maybe";
+  const guestCount = watch("guest");
+  const showFamilyInput = guestCount === "Family";
 
   const formConfig = inviteData?.rsvpPreferences?.formConfig;
+
+  // Extract event start and end dates from subEvents
+  const getEventDateRange = () => {
+    const subEvents = inviteData?.subEvents || [];
+    if (subEvents.length === 0)
+      return { startDate: undefined, endDate: undefined };
+
+    // Get all start dates and find the earliest
+    const startDates = subEvents
+      .map((event: any) => event.startDateTime)
+      .filter((date: any) => date)
+      .sort();
+
+    // Get all end dates and find the latest (if endDateTime exists, otherwise use startDateTime)
+    const endDates = subEvents
+      .map((event: any) => event.endDateTime || event.startDateTime)
+      .filter((date: any) => date)
+      .sort()
+      .reverse();
+
+    return {
+      startDate: startDates[0],
+      endDate: endDates[0],
+    };
+  };
+
+  const { startDate: eventStartDate, endDate: eventEndDate } =
+    getEventDateRange();
 
   const onSubmit = async () => {
     setIsSubmitting(true);
@@ -304,20 +334,47 @@ export default function GuestRSVP() {
           {showRsvpOptions && (
             <>
               {formConfig?.collectGuestCount && (
-                <div onClick={() => clearError("guest")}>
-                  <Category
-                    title="Additional Guest Count"
-                    name="guest"
-                    options={[
-                      { src: "+1.svg", label: "+1" },
-                      { src: "+2.svg", label: "+2" },
-                      { src: "family.svg", label: "Family" },
-                    ]}
-                    control={control}
-                    error={errors.guest}
-                    required
-                  />
-                </div>
+                <>
+                  <div onClick={() => clearError("guest")}>
+                    <Category
+                      title="Additional Guest Count"
+                      name="guest"
+                      options={[
+                        { src: "+1.svg", label: "+1" },
+                        { src: "+2.svg", label: "+2" },
+                        { src: "family.svg", label: "Family" },
+                      ]}
+                      control={control}
+                      error={errors.guest}
+                      required
+                    />
+                  </div>
+
+                  {showFamilyInput && (
+                    <div className="mt-4">
+                      <div className="relative">
+                        <input
+                          type="number"
+                          min="1"
+                          max="20"
+                          placeholder="Enter number of family members"
+                          className="peer w-full px-4 py-3 border rounded-xl text-sm md:text-base bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent border-gray-300"
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (value && parseInt(value) > 0) {
+                              setValue("guest", `+${value}`);
+                            } else {
+                              setValue("guest", "Family");
+                            }
+                          }}
+                        />
+                        <label className="absolute left-4 -top-2.5 bg-white px-2 text-xs font-medium text-gray-600 pointer-events-none">
+                          Number of Family Members
+                        </label>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {formConfig?.collectFood && (
@@ -359,8 +416,11 @@ export default function GuestRSVP() {
                   <AccommodationDetails
                     register={register}
                     watch={watch}
+                    setValue={setValue}
                     errors={errors}
                     clearError={clearError}
+                    eventStartDate={eventStartDate}
+                    eventEndDate={eventEndDate}
                   />
                   {formConfig.accommodationDetails && (
                     <p className="-mt-4 text-sm text-gray-600">
