@@ -1,26 +1,30 @@
 export interface WeddingDetails {
+  id: string;
   groom_name: string;
   bride_name: string;
-  groom_image?: string;
-  bride_image?: string;
-  groom_details?: string;
-  bride_details?: string;
+  groom_image: string;
+  bride_image: string;
+  groom_details: string;
+  bride_details: string;
+  hashtag: string;
 }
 
 export interface CoHost {
+  id: string;
   name: string;
-  mobile_number: string;
-  profile_pic?: string;
+  mobileNumber: string;
+  profilePic: string;
 }
 
 export interface SubEvent {
   id: string;
-  name: string;
-  date: string; // ISO String or "DD/MM/YYYY" depending on backend
-  time: string;
+  title: string;
   location: string;
-  imageUrl?: string;
-  day: string; // e.g., "Day 1"
+  address: string;
+  inviteMessage: string | null;
+  image: string;
+  startDateTime: string;
+  endDateTime: string;
 }
 
 export interface EventData {
@@ -36,4 +40,62 @@ export interface EventData {
   invite_message: string;
   wedding_details?: WeddingDetails;
   is_published?: boolean;
+}
+
+// API Response Types
+export interface InviteApiEvent {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  address: string;
+  invite_message: string;
+  image: string;
+  visibility: string;
+  created_at: string;
+  start_date_time: string;
+  end_date_time: string;
+  hostId: string;
+  weddingDetails: WeddingDetails | null;
+  birthdayDetails: unknown | null;
+  housePartyDetails: unknown | null;
+  travelDetails: unknown | null;
+  corporateDetails: unknown | null;
+  collegeDetails: unknown | null;
+  otherDetails: unknown | null;
+}
+
+export interface InviteApiGroup {
+  id: string;
+  name: string;
+}
+
+export interface InviteApiRsvpFormConfig {
+  collectAttendance: boolean;
+  collectGuestCount: boolean;
+  collectFood: boolean;
+  collectAlcohol: boolean;
+  collectAccommodation: boolean;
+  accommodationDetails: string;
+  collectTransport: boolean;
+  transportDetails: string;
+  additionalNotes: string;
+  isRsvpAllowed: boolean;
+  rsvpLockDate: string;
+  daysUntilLock: number;
+}
+
+export interface InviteApiRsvpPreferences {
+  formConfig: InviteApiRsvpFormConfig;
+  group: InviteApiGroup;
+}
+
+export interface InviteApiResponse {
+  group: InviteApiGroup;
+  event: InviteApiEvent;
+  userContext: unknown | null;
+  isAuthenticated: boolean;
+  coHosts: CoHost[];
+  subEvents: SubEvent[];
+  rsvpPreferences: InviteApiRsvpPreferences;
 }

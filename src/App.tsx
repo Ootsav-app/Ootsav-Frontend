@@ -10,7 +10,7 @@ import EventDetailsPage from "./pages/EventDetailsPage";
 
 const ROUTES = {
   HOME: "/",
-  EVENT_DETAILS: "/event-details", // 2. Add a new route key
+  // EVENT_INVITATION kept for legacy/future use
   EVENT_INVITATION: "/invitation",
   INVITE: "/invite",
   GUEST_RSVP: "/guest-rsvp-selected",
@@ -24,12 +24,13 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-50 darker-grotesque">
       <Routes>
         <Route path={ROUTES.HOME} element={<LandingPage />} />
-        
-        {/* 3. Add the Route component */}
-        <Route path={ROUTES.EVENT_DETAILS} element={<EventDetailsPage />} />
 
-        <Route path={ROUTES.EVENT_INVITATION} element={<EventInvitation />} />
-        <Route path={`${ROUTES.INVITE}/*`} element={<EventInvitation />} />
+        {/* Legacy event invitation component - kept for future use */}
+        {/* <Route path={ROUTES.EVENT_INVITATION} element={<EventInvitation />} /> */}
+
+        {/* Main invite route - renders EventDetailsPage with wedding invitation UI */}
+        <Route path={`${ROUTES.INVITE}/*`} element={<EventDetailsPage />} />
+
         <Route path={ROUTES.GUEST_RSVP} element={<GuestRSVP />} />
 
         <Route
