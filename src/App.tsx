@@ -5,7 +5,6 @@ import GuestRSVP from "./pages/GuestRSVP";
 import GuestRSVP_Attending from "./pages/GuestRSVP_Attending";
 import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
 import GuestRSVP_Maybe from "./pages/GuestRSVP_Maybe";
-import EventInvitation from "./pages/EventInvitation";
 import EventDetailsPage from "./pages/EventDetailsPage";
 
 const ROUTES = {
