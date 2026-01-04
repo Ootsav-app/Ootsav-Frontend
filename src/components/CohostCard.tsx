@@ -20,9 +20,7 @@ const CohostCard: React.FC<CohostCardProps> = ({ coHosts }) => {
 
   return (
     <div className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-      <h2 className="mb-4 text-xl font-semibold text-gray-600">
-        Co-Host Details
-      </h2>
+      <h2 className="mb-4 text-xl font-semibold text-gray-600">Co-Hosts</h2>
 
       {isEmpty ? (
         <div className="flex items-center justify-center h-24">

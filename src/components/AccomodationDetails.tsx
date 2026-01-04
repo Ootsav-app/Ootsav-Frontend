@@ -306,7 +306,7 @@ export default function AccommodationDetails({
 
       <div className="w-full">
         <h2 className="pl-2 mb-4 text-lg font-semibold text-gray-700">
-          Accommodation Required
+          Transport Details
         </h2>
 
         <div className="space-y-4">
@@ -325,7 +325,7 @@ export default function AccommodationDetails({
               <DateTimePicker
                 value={pickupDateTime}
                 onChange={handlePickupChange}
-                label="Pickup Date & Time"
+                // label="Pickup Date & Time"
                 placeholder="Select date and time"
                 minDate={dateRange.minDate}
                 maxDate={dateRange.maxDate}
@@ -361,7 +361,7 @@ export default function AccommodationDetails({
               <DateTimePicker
                 value={dropoffDateTime}
                 onChange={handleDropoffChange}
-                label="Dropoff Date & Time"
+                // label="Dropoff Date & Time"
                 placeholder="Select date and time"
                 minDate={getDropoffMinDate()}
                 maxDate={dateRange.maxDate}

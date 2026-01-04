@@ -417,33 +417,44 @@ export default function GuestRSVP() {
                 </div>
               )}
 
-              {formConfig?.collectAccommodation && (
-                <>
-                  <AccommodationDetails
-                    register={register}
-                    watch={watch}
-                    setValue={setValue}
-                    errors={errors}
-                    clearError={clearError}
-                    eventStartDate={eventStartDate}
-                    eventEndDate={eventEndDate}
-                  />
-                  {formConfig.accommodationDetails && (
-                    <p className="-mt-4 text-sm text-gray-600">
-                      Note: {formConfig.accommodationDetails}
-                    </p>
+              {(formConfig?.collectAccommodation ||
+                formConfig?.collectTransport) && (
+                <div className="p-6 space-y-4 border-2 border-purple-200 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50">
+                  {formConfig?.collectAccommodation && (
+                    <div>
+                      <AccommodationDetails
+                        register={register}
+                        watch={watch}
+                        setValue={setValue}
+                        errors={errors}
+                        clearError={clearError}
+                        eventStartDate={eventStartDate}
+                        eventEndDate={eventEndDate}
+                      />
+                      {formConfig.accommodationDetails && (
+                        <div className="mt-4">
+                          <h3 className="text-base font-bold text-black mb-2">
+                            Accommodation Details -
+                          </h3>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {formConfig.accommodationDetails}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   )}
-                </>
-              )}
 
-              {formConfig?.collectTransport && formConfig.transportDetails && (
-                <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
-                  <h3 className="mb-2 font-semibold text-gray-700">
-                    Transport Information
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {formConfig.transportDetails}
-                  </p>
+                  {formConfig?.collectTransport &&
+                    formConfig.transportDetails && (
+                      <div className="mt-4">
+                        <h3 className="text-base font-bold text-black mb-2">
+                          Transport Details -
+                        </h3>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          {formConfig.transportDetails}
+                        </p>
+                      </div>
+                    )}
                 </div>
               )}
             </>
