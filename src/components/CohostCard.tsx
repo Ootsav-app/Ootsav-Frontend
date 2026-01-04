@@ -19,21 +19,25 @@ const CohostCard: React.FC<CohostCardProps> = ({ coHosts }) => {
   const isEmpty = coHosts.length === 0;
 
   return (
-    <div className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-      <h2 className="mb-4 text-xl font-semibold text-gray-600">Co-Hosts</h2>
+    <div 
+      className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]"
+      style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
+    >
+
+      <h2 className="mb-3 text-sm font-medium text-gray-500">Co-Host Details</h2>
 
       {isEmpty ? (
-        <div className="flex items-center justify-center h-24">
-          <span className="text-lg font-medium text-gray-400">
+        <div className="flex items-center justify-center h-16">
+          <span className="text-sm font-medium text-gray-400">
             No co-hosts added yet.
           </span>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {coHosts.map((host) => (
-            <div key={host.id} className="flex items-start ap-3">
-              {/* Profile Picture - smaller and on the left */}
-              <div className="relative flex items-center justify-center flex-shrink-0 w-20 h-20 overflow-hidden bg-gray-200 rounded-xl">
+            <div key={host.id} className="flex items-center gap-3">
+            
+              <div className="relative flex-shrink-0 w-12 h-12 overflow-hidden bg-gray-100 rounded-xl">
                 {host.profilePic ? (
                   <img
                     src={host.profilePic}
@@ -58,7 +62,7 @@ const CohostCard: React.FC<CohostCardProps> = ({ coHosts }) => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-8 h-8 text-gray-400"
+                    className="w-5 h-5 text-gray-300"
                   >
                     <path
                       strokeLinecap="round"
@@ -69,22 +73,22 @@ const CohostCard: React.FC<CohostCardProps> = ({ coHosts }) => {
                 </div>
               </div>
 
-              {/* Text content on the right */}
-              <div className="flex flex-col justify-around flex-1 h-[80%] min-w-0 item-center ml-2">
-                <div>
-                  <h3 className="text-base font-semibold leading-tight text-gray-900 truncate ">
-                    {host.name}
-                  </h3>
-                  {/* <p className="text-xs font-medium text-gray-400">VIP Group</p> */}
-                </div>
+              {/* Text content */}
+              <div className="flex flex-col justify-center min-w-0">
+                <h3 className="text-[14px] font-semibold leading-none text-gray-900 truncate mb-1">
+                  {host.name}
+                </h3>
+                
+                {/* Optional Group Label  */}
+                {/* <p className="text-[10px] text-gray-400 leading-none mb-1">VIP Group</p> */}
 
                 {/* Call Button */}
                 <a
                   href={`tel:${host.mobileNumber}`}
-                  className="flex items-center gap-1.5 text-red-500  text-sm mt-1"
+                  className="flex items-center gap-1 text-red-500 hover:text-red-600 transition-colors"
                 >
-                  <Phone size={14} className="text-red-500" />
-                  CALL
+                  <Phone size={10} className="fill-current" />
+                  <span className="text-[10px] font-bold tracking-wider leading-none">CALL</span>
                 </a>
               </div>
             </div>
