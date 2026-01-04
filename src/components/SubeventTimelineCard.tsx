@@ -48,7 +48,7 @@ const SubeventTimelineCard: React.FC<SubeventTimelineCardProps> = ({
   return (
     <div className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-900">Sub Event Details</h2>
+        <h2 className="text-xl font-bold text-gray-900">Event Schedule</h2>
       </div>
 
       {isEmpty ? (

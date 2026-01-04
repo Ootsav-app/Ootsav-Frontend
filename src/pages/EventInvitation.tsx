@@ -89,20 +89,25 @@ const EventInvitation: React.FC = () => {
     // Create a unique key for this event-group combination
     const cacheKey = `invite_${currentEventId}_${currentGroupId}`;
 
-    // Check if data exists in localStorage
-    const cachedData = localStorage.getItem(cacheKey);
+    // Check if data exists in sessionStorage (more reliable across devices)
+    try {
+      const cachedData = sessionStorage.getItem(cacheKey);
 
-    if (cachedData) {
-      try {
-        const parsedData = JSON.parse(cachedData);
-        setInviteData(parsedData);
-        setIsLoading(false);
-        return;
-      } catch (error) {
-        // If parsing fails, clear the corrupted data and fetch fresh
-        console.error("Error parsing cached invite data:", error);
-        localStorage.removeItem(cacheKey);
+      if (cachedData) {
+        try {
+          const parsedData = JSON.parse(cachedData);
+          setInviteData(parsedData);
+          setIsLoading(false);
+          return;
+        } catch (error) {
+          // If parsing fails, clear the corrupted data and fetch fresh
+          console.error("Error parsing cached invite data:", error);
+          sessionStorage.removeItem(cacheKey);
+        }
       }
+    } catch (storageError) {
+      // If sessionStorage is not available (privacy mode, etc.), just continue without caching
+      console.warn("Session storage not available:", storageError);
     }
 
     setIsLoading(true);
@@ -113,11 +118,15 @@ const EventInvitation: React.FC = () => {
         const data: any = res.data;
         setInviteData(data);
 
-        // Store the data in localStorage for future use
-        localStorage.setItem(cacheKey, JSON.stringify(data));
-
-        // Clean up old localStorage entries for different events
-        cleanupOldEventData(cacheKey);
+        // Store the data in sessionStorage for future use (more reliable than localStorage)
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(data));
+          // Clean up old sessionStorage entries for different events
+          cleanupOldEventData(cacheKey);
+        } catch (storageError) {
+          // If storage fails (privacy mode, quota exceeded), just continue without caching
+          console.warn("Unable to cache data:", storageError);
+        }
       })
       .catch((error) => {
         console.error("Error loading invite details:", error);
@@ -130,20 +139,25 @@ const EventInvitation: React.FC = () => {
       });
   }, [location.pathname, location.search]);
 
-  // Function to clean up old event data from localStorage
+  // Function to clean up old event data from sessionStorage
   const cleanupOldEventData = (currentKey: string) => {
-    const keysToRemove: string[] = [];
+    try {
+      const keysToRemove: string[] = [];
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key && key.startsWith("invite_") && key !== currentKey) {
-        keysToRemove.push(key);
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key && key.startsWith("invite_") && key !== currentKey) {
+          keysToRemove.push(key);
+        }
       }
-    }
 
-    keysToRemove.forEach((key) => {
-      localStorage.removeItem(key);
-    });
+      keysToRemove.forEach((key) => {
+        sessionStorage.removeItem(key);
+      });
+    } catch (error) {
+      // Ignore cleanup errors
+      console.warn("Unable to cleanup old cache:", error);
+    }
   };
 
   const handleConfirmAttendance = () => {
