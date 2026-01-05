@@ -9,7 +9,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "darker-grotesque": ["Darker Grotesque", "sans-serif"],
+        "darker-grotesque": ['"Darker Grotesque"', "sans-serif"],
+        "dark-grot": ['DarkGrot', 'sans-serif'],
+        montaga: ["Montaga", "serif"],
+        pompiere: ["Pompiere", "cursive"],
+        laila: ["Laila", "serif"],
+        poly: ["Poly", "serif"],
       },
       fontWeight: {
         light: 300,
@@ -69,57 +74,25 @@ module.exports = {
           900: "#111827",
         },
       },
-      fontFamily: {
-        // Wedding Invitation Fonts
-        montaga: ["Montaga", "serif"],
-        pompiere: ["Pompiere", "cursive"],
-        laila: ["Laila", "serif"],
-        poly: ["Poly", "serif"],
-        "darker-grotesque": ['"Darker Grotesque"', "sans-serif"],
-        'dark-grot': ['DarkGrot', 'sans-serif'],
-      },
       fontSize: {
         // Wedding Invitation Typography Scale
-        "invitation-hero": ["40px", { lineHeight: "1.232", fontWeight: "400" }], // Bride/Groom names
-        "invitation-title": [
-          "38px",
-          { lineHeight: "1.232", fontWeight: "400" },
-        ], // Event names (Wedding, Haldi, etc.)
-        "invitation-body": ["32px", { lineHeight: "1.202", fontWeight: "400" }], // Main invitation text
-        "invitation-accent": [
-          "26px",
-          { lineHeight: "1.188", fontWeight: "400" },
-        ], // "weds" text
-        "invitation-detail": [
-          "24px",
-          { lineHeight: "1.55", fontWeight: "400" },
-        ], // Event details
-        "invitation-detail-bold": [
-          "24px",
-          { lineHeight: "1.55", fontWeight: "600" },
-        ], // Event dates/times
-        "invitation-detail-light": [
-          "24px",
-          { lineHeight: "1.55", fontWeight: "300" },
-        ], // Hashtags
-        "invitation-parent": [
-          "17px",
-          { lineHeight: "1.232", fontWeight: "400" },
-        ], // Parent names
-        "invitation-button": [
-          "16px",
-          { lineHeight: "1.25", fontWeight: "700", letterSpacing: "0.625%" },
-        ], // Button text
+        "invitation-hero": ["40px", { lineHeight: "1.232", fontWeight: "400" }],
+        "invitation-title": ["38px", { lineHeight: "1.232", fontWeight: "400" }],
+        "invitation-body": ["32px", { lineHeight: "1.202", fontWeight: "400" }],
+        "invitation-accent": ["26px", { lineHeight: "1.188", fontWeight: "400" }],
+        "invitation-detail": ["24px", { lineHeight: "1.55", fontWeight: "400" }],
+        "invitation-detail-bold": ["24px", { lineHeight: "1.55", fontWeight: "600" }],
+        "invitation-detail-light": ["24px", { lineHeight: "1.55", fontWeight: "300" }],
+        "invitation-parent": ["17px", { lineHeight: "1.232", fontWeight: "400" }],
+        "invitation-button": ["16px", { lineHeight: "1.25", fontWeight: "700", letterSpacing: "0.625%" }],
       },
       spacing: {
         90: "22.5rem",
-        // Wedding Invitation Card Dimensions
         "invitation-width": "390px",
         "invitation-height": "2043px",
         "invitation-border": "1px",
       },
       maxWidth: {
-        // Responsive wedding invitation container widths
         "invitation-sm": "390px",
         "invitation-md": "450px",
         "invitation-lg": "520px",
@@ -127,7 +100,6 @@ module.exports = {
         "invitation-2xl": "650px",
       },
       zIndex: {
-        // Wedding invitation layer management
         decoration: "1",
         floral: "2",
         content: "10",
@@ -137,23 +109,19 @@ module.exports = {
       borderRadius: {
         "invitation-button": "8px",
       },
-      // Wedding Invitation Component Classes
       textTransform: {
         "invitation-button": "uppercase",
       },
     },
   },
   plugins: [
-    // Custom plugin for wedding invitation component utilities
     function ({ addUtilities, theme }) {
       const newUtilities = {
         ".invitation-card": {
           width: theme("spacing.invitation-width"),
           height: theme("spacing.invitation-height"),
           backgroundColor: theme("colors.invitation.background"),
-          border: `${theme("spacing.invitation-border")} solid ${theme(
-            "colors.invitation.text"
-          )}`,
+          border: `${theme("spacing.invitation-border")} solid ${theme("colors.invitation.text")}`,
           position: "relative",
           overflow: "hidden",
         },

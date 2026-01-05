@@ -35,6 +35,9 @@ const SubeventTimelineCard: React.FC<SubeventTimelineCardProps> = ({
       minute: "2-digit",
       hour12: true,
     });
+    
+    // Formatting day name (e.g., FRI) for the date column if needed, 
+    // strictly adhering to existing logic for now.
     return { day, dateString, time };
   };
 
@@ -46,7 +49,10 @@ const SubeventTimelineCard: React.FC<SubeventTimelineCardProps> = ({
   };
 
   return (
-    <div className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div 
+      className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]"
+      style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
+    >
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold text-gray-900">Event Schedule</h2>
       </div>
@@ -161,7 +167,7 @@ const SubeventTimelineCard: React.FC<SubeventTimelineCardProps> = ({
                         <img
                           src={event.image || "/assets/default_event.png"}
                           alt={event.title}
-                          className="w-full h-full "
+                          className="w-full h-full object-cover"
                           onError={(e) =>
                             (e.currentTarget.src = "/assets/default_event.png")
                           }

@@ -63,17 +63,20 @@ const EventTimeCard: React.FC<EventTimeCardProps> = ({
     label: string;
   }) => (
     <div className="flex flex-col items-center mx-1">
-      <span className="text-2xl font-bold text-white leading-none">
+      <span className="text-xl sm:text-2xl font-bold text-white leading-none tracking-tight">
         {value.toString().padStart(2, "0")}
       </span>
-      <span className="text-xs font-semibold text-white/90 uppercase mt-1">
+      <span className="text-[10px] font-medium text-white/90 uppercase mt-1 tracking-wider">
         {label}
       </span>
     </div>
   );
 
   return (
-    <div className="m-4 bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden">
+    <div 
+      className="m-4 bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden"
+      style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
+    >
       {/* Image Section */}
       <div className="relative aspect-video">
         <img
@@ -91,22 +94,22 @@ const EventTimeCard: React.FC<EventTimeCardProps> = ({
         {/* Content Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
           <div className="flex flex-col">
-            <span className="text-white text-sm font-medium mb-1">
+            <span className="text-white text-xs font-semibold tracking-wide mb-1 uppercase">
               {hashTag.startsWith("#") ? hashTag : `#${hashTag}`}
             </span>
 
             {timeLeft ? (
               <div className="flex items-center">
                 <CountdownItem value={timeLeft.days} label="Days" />
-                <span className="text-white text-xl mx-1 mb-4">:</span>
+                <span className="text-white text-lg mx-0.5 mb-4">:</span>
                 <CountdownItem value={timeLeft.hours} label="Hours" />
-                <span className="text-white text-xl mx-1 mb-4">:</span>
+                <span className="text-white text-lg mx-0.5 mb-4">:</span>
                 <CountdownItem value={timeLeft.mins} label="Mins" />
-                <span className="text-white text-xl mx-1 mb-4">:</span>
+                <span className="text-white text-lg mx-0.5 mb-4">:</span>
                 <CountdownItem value={timeLeft.secs} label="Secs" />
               </div>
             ) : (
-              <span className="text-white text-2xl font-bold">
+              <span className="text-white text-xl font-bold tracking-tight">
                 Event Started!
               </span>
             )}
@@ -115,25 +118,26 @@ const EventTimeCard: React.FC<EventTimeCardProps> = ({
       </div>
 
       {/* Info Section */}
-      <div className="p-4 pb-6">
+      <div className="p-4 pb-5">
         <div className="flex justify-between items-start mb-2">
-          <h2 className="text-2xl font-bold text-gray-900 truncate pr-2">
+          {/* Title with exact Figma specs: 20px, SemiBold (600), Line Height 100% */}
+          <h2 className="text-[20px] font-semibold text-gray-900 truncate pr-2 leading-none">
             {names}
           </h2>
         </div>
 
         <div className="flex items-center space-x-4 overflow-x-auto no-scrollbar">
           <div className="flex items-center text-gray-600 whitespace-nowrap">
-            <Calendar className="w-5 h-5 mr-2 text-red-500" />
-            <span className="font-semibold text-lg">{dates}</span>
+            <Calendar className="w-4 h-4 mr-1.5 text-red-500" />
+            <span className="font-semibold text-sm">{dates}</span>
           </div>
-          <div className="h-4 w-[1px] bg-gray-300"></div>
+          <div className="h-3 w-[1px] bg-gray-300"></div>
           <div
             className="flex items-center text-gray-600 whitespace-nowrap cursor-pointer hover:text-red-500 transition"
             onClick={() => openMap(location)}
           >
-            <MapPin className="w-5 h-5 mr-1 text-red-500" />
-            <span className="font-semibold text-lg truncate max-w-[150px]">
+            <MapPin className="w-4 h-4 mr-1 text-red-500" />
+            <span className="font-semibold text-sm truncate max-w-[150px]">
               {location}
             </span>
           </div>

@@ -36,7 +36,8 @@ const HostCard: React.FC<HostCardProps> = ({ weddingDetails }) => {
     imgUrl: string;
   }> = ({ name, role, details, imgUrl }) => (
     <div className="flex flex-col items-start w-full">
-      <div className="w-full aspect-[3/4] bg-gray-300 rounded-xl overflow-hidden mb-3 relative">
+      {/* Image Section */}
+      <div className="w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3 relative shadow-sm">
         {imgUrl ? (
           <img
             src={imgUrl}
@@ -51,7 +52,7 @@ const HostCard: React.FC<HostCardProps> = ({ weddingDetails }) => {
           />
         ) : null}
         <div
-          className={`absolute inset-0 flex items-center justify-center ${
+          className={`absolute inset-0 flex items-center justify-center bg-gray-100 ${
             imgUrl ? "hidden" : "flex"
           }`}
         >
@@ -61,7 +62,7 @@ const HostCard: React.FC<HostCardProps> = ({ weddingDetails }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-12 h-12 text-gray-400"
+            className="w-8 h-8 text-gray-300"
           >
             <path
               strokeLinecap="round"
@@ -71,31 +72,48 @@ const HostCard: React.FC<HostCardProps> = ({ weddingDetails }) => {
           </svg>
         </div>
       </div>
-      <h3 className="text-lg font-bold leading-tight text-gray-900">{name}</h3>
-      <span className="font-medium text-gray-500">{role}</span>
-      {details && (
-        <p className="mt-1 text-sm text-gray-500 line-clamp-3">{details}</p>
-      )}
+
+      {/* Text Content */}
+      <div className="flex flex-col w-full">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-0.5">
+          {role}
+        </span>
+        
+        <h3 className="text-[14px] font-semibold text-gray-900 leading-[16px]">
+          {name}
+        </h3>
+
+        {/* Details */}
+        {details && (
+          <p className="mt-1 text-[12px] text-gray-500 leading-tight line-clamp-2">
+            {details}
+          </p>
+        )}
+      </div>
     </div>
   );
 
   return (
-    <div className="mx-4 mb-4 p-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-      <div className="flex gap-4 ">
-        <div className="flex-1">
-          <ProfileBlock
-            name={groomName}
-            role="Groom"
-            details={groomDetails}
-            imgUrl={weddingDetails.groom_image}
-          />
-        </div>
+    <div 
+      className="mx-4 mb-4 p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]"
+      style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
+    >
+      <div className="flex gap-4">
+       
         <div className="flex-1">
           <ProfileBlock
             name={brideName}
             role="Bride"
             details={brideDetails}
             imgUrl={weddingDetails.bride_image}
+          />
+        </div>
+        <div className="flex-1">
+          <ProfileBlock
+            name={groomName}
+            role="Groom"
+            details={groomDetails}
+            imgUrl={weddingDetails.groom_image}
           />
         </div>
       </div>
