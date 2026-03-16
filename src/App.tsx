@@ -7,6 +7,7 @@ import GuestRSVP_NotAttending from "./pages/GuestRSVP_NotAttending";
 import GuestRSVP_Maybe from "./pages/GuestRSVP_Maybe";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ContactUs from "./pages/ContactUs";
 
 const ROUTES = {
   HOME: "/",
@@ -18,6 +19,7 @@ const ROUTES = {
   GUEST_RSVP_NOT_ATTENDING: "/guest-rsvp-not-attending",
   GUEST_RSVP_MAYBE: "/guest-rsvp-maybe",
   PRIVACY_POLICY: "/privacy-policy",
+  CONTACT_US: "/contact",
 } as const;
 
 const App: React.FC = () => {
@@ -45,6 +47,7 @@ const App: React.FC = () => {
         <Route path={ROUTES.GUEST_RSVP_MAYBE} element={<GuestRSVP_Maybe />} />
 
         <Route path={ROUTES.PRIVACY_POLICY} element={<PrivacyPolicy />} />
+        <Route path={ROUTES.CONTACT_US} element={<ContactUs />} />
 
         <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
       </Routes>
