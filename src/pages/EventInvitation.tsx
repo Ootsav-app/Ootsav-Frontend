@@ -214,7 +214,7 @@ const EventInvitation: React.FC = () => {
             src="/app.svg"
             alt="Apple App Store"
             className="w-[90%] max-w-xs sm:max-w-sm md:max-w-md rounded-xl cursor-pointer"
-            onClick={() => window.open("https://apps.apple.com", "_blank")}
+            onClick={() => window.open("https://apps.apple.com/in/app/ootsav/id6758633771", "_blank")}
           />
         </div>
       </div>
